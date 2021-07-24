@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Latest Photos
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Photo List</h1>
+        <a href="{% url 'add_photos' %}">Add Photos</a>
+
+        {% for photo in photos %}
+            <h3>{{ photo.title }}</h3>
+            <img src="{{ photo.image.url }}" alt="" style="width: 100%;">
+
+        {% endfor %}
+
+    </div>
+{% endblock %}
