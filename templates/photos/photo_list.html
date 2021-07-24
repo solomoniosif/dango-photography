@@ -10,8 +10,8 @@
         <a href="{% url 'add_photos' %}">Add Photos</a>
 
         {% for photo in photos %}
-            <h3>{{ photo.title }}</h3>
-            <img src="{{ photo.image.url }}" alt="" style="width: 100%;">
+{#            <h3>{{ photo.title }}</h3>#}
+            <img src="{{ photo.image.url }}" alt="" style="width: 100%; padding: 7px;">
 
         {% endfor %}
 

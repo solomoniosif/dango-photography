@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load cloudinary %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -50,7 +51,6 @@
                 totalForms.setAttribute('value', `${formNum + 1}`)
             }
         </script>
-
 
     </div>
 {% endblock %}
