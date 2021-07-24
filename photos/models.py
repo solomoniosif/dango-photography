@@ -47,7 +47,7 @@ class Album(models.Model):
 
 class Photo(models.Model):
 	categories = models.ManyToManyField(Category, blank=True)
-	album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True)
+	album = models.ForeignKey(Album, on_delete=models.SET_NULL, null=True, blank=True, related_name="photos")
 	title = models.CharField(max_length=250, unique=True)
 	tags = TaggableManager()
 	image = CloudinaryField("Image", overwrite=True, resource_type="image", transformation={"quality": "auto:eco"})

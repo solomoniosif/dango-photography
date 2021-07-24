@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'includes/small_header.html' %}
     <div class="container">
         <h1>Photo List</h1>
         <a href="{% url 'add_photos' %}">Add Photos</a>

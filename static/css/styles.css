@@ -24,7 +24,7 @@ body {
     float: left;
     width: auto;
     height: auto;
-    padding-left: 4rem;
+    padding-left: 2rem;
 }
 
 .nav div.logo a {
@@ -61,6 +61,10 @@ body {
     height: 65px;
     padding: 0;
     padding-right: 10px;
+}
+
+.nav div.main_list ul li:last-child {
+    padding-right: 2rem;
 }
 
 .nav div.main_list ul li a {
@@ -361,15 +365,19 @@ body {
 
 .main-heading {
     font-family: 'Aladin', cursive;
-    font-size: 9rem;
+    font-size: 7rem;
 }
 
 .sub-heading {
     font-family: 'Zilla Slab Highlight', cursive;
-    font-size: 3.7rem;
+    font-size: 3rem;
 }
 
-
+.bg-cover-small {
+    background-size: cover !important;
+    height: 130px;
+    margin-bottom: 70px;
+}
 
 
 

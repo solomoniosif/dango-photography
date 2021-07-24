@@ -6,7 +6,7 @@ from django.db.models.signals import pre_save
 from photography_website import settings
 from core.models import BasePublishModel
 from core.utils import slugify_pre_save
-from photos.models import Photo
+from photos.models import Photo, Album
 
 
 class Post(BasePublishModel):
@@ -14,7 +14,8 @@ class Post(BasePublishModel):
 	title = models.CharField(max_length=255)
 	text = RichTextField(null=True, blank=True)
 	slug = models.SlugField(null=True, blank=True, db_index=True)
-	photos = models.ManyToManyField(Photo)
+	photos = models.ManyToManyField(Photo, null=True, blank=True)
+	album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
 		return self.title

@@ -1,10 +1,14 @@
+{% extends 'base.html' %}
+
 {% load crispy_forms_tags %}
 {% load cloudinary %}
 
-{% block body %}
-    <div class="container" style="padding: 50px;">
+{% block content %}
+    {% include 'includes/small_header.html' %}
+    <div class="container">
+        <h1>Add New Photo</h1>
         <div id='backend_upload'>
-            <form action="{% url "add_photo" %}" method="post" enctype="multipart/form-data">
+            <form class="form-container" action="{% url "add_photo" %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ backend_form|crispy }}
                 <input type="submit" value="Upload">
