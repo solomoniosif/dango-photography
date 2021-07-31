@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from pprint import pprint
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -147,12 +149,16 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Cloudinary Configuration
+pprint(os.environ)
+
 CLOUDINARY_CLOUD_NAME = os.environ['CLOUDINARY_CLOUD_NAME']
-CLOUDINARY_API_SECRET = os.environ['CLOUDINARY_API_SECRET']
 CLOUDINARY_API_KEY = os.environ['CLOUDINARY_API_KEY']
+CLOUDINARY_API_SECRET = os.environ['CLOUDINARY_API_SECRET']
 
 cloudinary.config(
 	cloud_name=CLOUDINARY_CLOUD_NAME,
 	api_key=CLOUDINARY_API_KEY,
 	api_secret=CLOUDINARY_API_SECRET
 )
+
+
