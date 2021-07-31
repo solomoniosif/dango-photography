@@ -1,11 +1,20 @@
-from django.contrib import admin
 from django import forms
+from django.forms.models import inlineformset_factory
 
 from .models import Post
 from photos.models import Photo
 
 
-class PhotoAdminForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(PostForm, self).__init__(*args, **kwargs)
+
+	class Meta:
+		model = Post
+		fields = ['title', 'author', 'status', 'text', 'tags', 'slug']
+
+
+class PhotoForm(forms.ModelForm):
 	class Meta:
 		model = Photo
 		fields = ['image', 'title', 'tags', 'description', 'is_featured']
@@ -29,19 +38,7 @@ class PhotoAdminForm(forms.ModelForm):
 		}
 
 
-class PostPhotoAdmin(admin.TabularInline):
-	model = Photo
-	form = PhotoAdminForm
+PostFormSet = inlineformset_factory(Post, Photo, form=PhotoForm)
 
-
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-	inlines = [PostPhotoAdmin]
-	fields = [('title', 'author', 'status',), 'text', ('tags', 'slug')]
-	list_display = ('title', 'status', 'created_on')
-	list_filter = ("status",)
-	search_fields = ['title', 'text']
-	prepopulated_fields = {'slug': ('title',)}
-
-	class Meta:
-		model = Post
+PostInlineFormset = inlineformset_factory(Post, Photo, fields=('image', 'title', 'tags', 'description', 'is_featured'),
+										  extra=1)

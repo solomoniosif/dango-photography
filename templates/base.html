@@ -5,9 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-        {% block title %}Untitled{% endblock %}
-    </title>
+
+    <title>{% block title %}Untitled{% endblock %}</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,8 +23,6 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
 
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
 
     <!-- Custom styles-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -33,16 +30,18 @@
 </head>
 
 <body>
+<main>
+    {% include 'includes/navbar.html' %}
 
-{% include 'includes/navbar.html' %}
+    <div class="global-container">
 
-<div class="global-container">
+        {% include 'includes/messages.html' %}
 
-    {% include 'includes/messages.html' %}
+        {% block content %}{% endblock %}
 
-    {% block content %}{% endblock %}
+    </div>
+</main>
 
-</div>
 
 {% include 'includes/footer.html' %}
 
@@ -54,7 +53,7 @@
 
 <!-- Function used to shrink nav bar removing paddings and adding black background -->
 <script>
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         if ($(document).scrollTop() > 50) {
             $('.nav').addClass('affix');
             console.log("OK");

@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-from photos.models import Category, Gallery, Album, Photo
-
-
-class CategoryAdmin(admin.ModelAdmin):
-	prepopulated_fields = {'slug': ('title',)}
+from photos.models import Gallery, Album, Photo
 
 
 class GalleryAdmin(admin.ModelAdmin):
@@ -31,7 +27,6 @@ class PhotoAdmin(admin.ModelAdmin):
 		return u", ".join(o.name for o in obj.tags.all())
 
 
-admin.site.register(Category, CategoryAdmin)
 admin.site.register(Gallery, GalleryAdmin)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Photo, PhotoAdmin)

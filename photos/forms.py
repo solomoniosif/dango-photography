@@ -9,5 +9,5 @@ class PhotoForm(ModelForm):
 
 
 PhotoFormSet = modelformset_factory(
-	Photo, fields=('title', 'categories', 'album', 'tags', 'image', 'is_featured'), extra=1
+	Photo, fields=('title', 'album', 'tags', 'image', 'is_featured'), extra=1
 )

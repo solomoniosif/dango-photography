@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 	'taggit',
 	'cloudinary',
 	"crispy_forms",
+	'forms_fieldset',
 	'ckeditor',
 
 	# Local apps
@@ -143,7 +144,7 @@ TAGGIT_CASE_INSENSITIVE = True
 
 # Django crispy forms Configuration
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Cloudinary Configuration
 cloudinary.config(
