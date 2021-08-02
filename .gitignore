@@ -1,4 +1,7 @@
 /venv/
 /.idea/
+.idea/
+/__pycache__/
 /photos/__pycache__/
-/photography_website/.env
+blog/__pycache__/
+.env

@@ -1,10 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import DetailView, ListView, CreateView, FormView
+from django.views.generic import DetailView, ListView, CreateView, FormView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic.detail import SingleObjectMixin
+from django.db import transaction
 
 from .forms import PostForm, PostFormSet, PostInlineFormset
 from .models import Post
@@ -22,49 +23,66 @@ class PostListView(ListView):
 	context_object_name = 'posts'
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
-	template_name = 'blog/post_form.html'
-	success_url = reverse_lazy('blog')
+class PostCreateView(CreateView):
+	model = Post
+	template_name = 'blog/post_create.html'
 	form_class = PostForm
+	success_url = None
 
 	def get_context_data(self, **kwargs):
 		context = super(PostCreateView, self).get_context_data(**kwargs)
 		if self.request.POST:
-			context['new_post'] = PostFormSet(self.request.POST)
+			context['post_photos'] = PostFormSet(self.request.POST, self.request.FILES)
 		else:
-			context['new_post'] = PostFormSet()
+			context['post_photos'] = PostFormSet()
 		return context
 
 	def form_valid(self, form):
-		messages.add_message(self.request, messages.SUCCESS, 'The post was created')
-		return super().form_valid(form)
-
-
-class PostInlineEditView(SingleObjectMixin, FormView):
-	model = Post
-	template_name = 'blog/post_inline_edit.html'
-
-	def get(self, request, *args, **kwargs):
-		self.object = self.get_object(queryset=Post.objects.all())
-		return super().get(request, *args, **kwargs)
-
-	def post(self, request, *args, **kwargs):
-		self.object = self.get_object(queryset=Post.objects.all())
-		return super().get(request, *args, **kwargs)
-
-	def get_form(self, form_class=None):
-		return PostInlineFormset(**self.get_form_kwargs(), instance=self.object)
-
-	def form_valid(self, form):
-		form.save()
-		messages.add_message(self.request, messages.SUCCESS, 'Changes were saved.')
-		return HttpResponseRedirect(self.get_success_url())
-
-	def get_context_data(self, **kwargs):
-		"""Insert the Post Model Form into the context dict."""
-		if 'post_form' not in kwargs:
-			kwargs['post_form'] = PostForm()
-		return super().get_context_data(**kwargs)
+		context = self.get_context_data()
+		post_photos = context['post_photos']
+		with transaction.atomic():
+			if post_photos.is_valid():
+				self.object = form.save()
+				post_photos.instance = self.object
+				post_photos.save()
+				messages.add_message(self.request, messages.SUCCESS, f"Post '{self.object.title}' was created.")
+				return super(PostCreateView, self).form_valid(form)
+			else:
+				return render(self.request, self.template_name, self.get_context_data(form=form))
 
 	def get_success_url(self):
-		return reverse('post_detail', kwargs={'slug': self.object.slug})
+		return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+
+
+class PostUpdateView(UpdateView):
+	model = Post
+	template_name = 'blog/post_update.html'
+	form_class = PostForm
+	success_url = None
+
+	def get_context_data(self, **kwargs):
+		context = super(PostUpdateView, self).get_context_data(**kwargs)
+		if self.request.POST:
+			context['post_photos'] = PostFormSet(self.request.POST, self.request.FILES, instance=self.object)
+		else:
+			context['post_photos'] = PostFormSet(instance=self.object)
+		return context
+
+	def form_valid(self, form):
+		context = self.get_context_data()
+		post_photos = context['post_photos']
+		with transaction.atomic():
+			if post_photos.is_valid():
+				self.object = form.save()
+				post_photos.instance = self.object
+				post_photos.save()
+				messages.add_message(self.request, messages.SUCCESS, f"Post '{self.object.title}' was created.")
+				return super(PostUpdateView, self).form_valid(form)
+			else:
+				return render(self.request, self.template_name, self.get_context_data(form=form))
+
+	def get_success_url(self):
+		return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+
+
+

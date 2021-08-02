@@ -23,7 +23,7 @@
                     <img src="{{ photo.image.url }}" alt="" style="width: 100%; padding: 7px;">
                 {% endfor %}
             {% endif %}
-            <a class="btn btn-warning w-100" href="{% url 'post_inline_update' post.slug %}">Edit Post</a>
+            <a class="btn btn-warning w-100" href="{% url 'post_update' post.slug %}">Edit Post</a>
 
         </div>
 

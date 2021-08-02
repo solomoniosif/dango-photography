@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create Post
+{% endblock %}
+
+
+{% block content %}
+    {% include 'includes/small_header.html' %}
+
+    <div class="row justify-content-md-center mt-30">
+        <div class="col-lg-7 p-3">
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% for hidden_field in form.hidden_fields %}
+                    {{ hidden_field.errors }}
+                    {{ hidden_field }}
+                {% endfor %}
+
+                {% csrf_token %}
+
+                {{ form.management_form }}
+                {{ form.non_form_errors }}
+
+                <h3>Create New Post</h3>
+
+                {% crispy form %}
+
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
 	path('', views.PostListView.as_view(), name='blog'),
 	path('<slug:slug>', views.PostDetailView.as_view(), name='post_detail'),
-	path('add/', views.PostCreateView.as_view(), name='add_post'),
-	path('update/<slug:slug>', views.PostInlineEditView.as_view(), name='post_inline_update'),
+	path('add/', views.PostCreateView.as_view(), name='post_create'),
+	path('update/<slug:slug>', views.PostUpdateView.as_view(), name='post_update'),
 ]
