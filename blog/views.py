@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.views.generic.detail import SingleObjectMixin
 from django.db import transaction
 
-from .forms import PostForm, PostFormSet, PostInlineFormset
+from .forms import PostForm, PostFormSet
 from .models import Post
 
 
@@ -76,13 +76,10 @@ class PostUpdateView(UpdateView):
 				self.object = form.save()
 				post_photos.instance = self.object
 				post_photos.save()
-				messages.add_message(self.request, messages.SUCCESS, f"Post '{self.object.title}' was created.")
+				messages.add_message(self.request, messages.SUCCESS, f"Post '{self.object.title}' was updated.")
 				return super(PostUpdateView, self).form_valid(form)
 			else:
 				return render(self.request, self.template_name, self.get_context_data(form=form))
 
 	def get_success_url(self):
 		return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
-
-
-

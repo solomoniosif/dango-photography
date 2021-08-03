@@ -2,6 +2,8 @@
 /.idea/
 .idea/
 /__pycache__/
+__pycache__/
 /photos/__pycache__/
 blog/__pycache__/
 .env
+secrets.py

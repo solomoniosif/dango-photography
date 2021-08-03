@@ -16,6 +16,8 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+from secrets import CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 	"crispy_forms",
 	'forms_fieldset',
 	'ckeditor',
+	# 'debug_toolbar',
 
 	# Local apps
 	'core',
@@ -62,6 +65,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'photography_website.urls'
@@ -148,13 +152,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Cloudinary Configuration
-
-
 cloudinary.config(
-	cloud_name="dx4oftuzr",
-	api_key="453811927397179",
-	api_secret="WoDmaYaIC0tslIjrLq31Co1WoBM"
-
+	cloud_name=CLOUDINARY_CLOUD_NAME,
+	api_key=CLOUDINARY_API_KEY,
+	api_secret=CLOUDINARY_API_SECRET
 )
-
-

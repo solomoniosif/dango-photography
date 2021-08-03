@@ -54,5 +54,3 @@ class PhotoForm(forms.ModelForm):
 
 PostFormSet = inlineformset_factory(Post, Photo, form=PhotoForm, extra=2, can_delete=True)
 
-PostInlineFormset = inlineformset_factory(Post, Photo, fields=('image', 'title', 'tags', 'description', 'is_featured'),
-										  extra=1)
