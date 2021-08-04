@@ -12,7 +12,7 @@ def home(request):
 
 class PhotoListView(ListView):
 	model = Photo
-	template_name = 'photos/photo_list.html'
+	template_name = 'photos/album_details.html'
 	context_object_name = 'photos'
 
 

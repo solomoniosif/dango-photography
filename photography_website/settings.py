@@ -16,7 +16,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-from secrets import CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+from cloudinary_api_secrets import CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,8 +47,6 @@ INSTALLED_APPS = [
 	'cloudinary',
 	"crispy_forms",
 	'forms_fieldset',
-	'ckeditor',
-	# 'debug_toolbar',
 
 	# Local apps
 	'core',

@@ -8,14 +8,10 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Quicksand", sans-serif;
-    background: linear-gradient(to bottom, rgba(252, 240, 143, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
-    /*font-size: 62.5%;*/
-    /*font-size: 10px;*/
+    /*background: linear-gradient(to bottom, rgb(158, 189, 207) 0%, rgb(175, 201, 215) 100%);*/
+    background-color: rgba(255,255,255,0.6);
+    background-blend-mode: lighten;
 }
-
-/*.global-container{*/
-/*    padding-top: 120px;*/
-/*}*/
 
 /* Navbar section */
 
@@ -41,13 +37,15 @@ body {
     font-size: 2rem;
     font-weight: bold;
     padding: 5px 10px;
+    text-shadow: 0 8px 20px rgba(0, 0, 0, 0.95);
 }
 
 .nav div.logo a:hover {
     padding: 5px 10px;
     border-radius: 12px;
     color: rgba(0, 0, 0, 0.56);
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.17) 100%);
+    text-shadow: 0 8px 20px rgba(255, 255, 255, 0.95);
+    /*background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.17) 100%);*/
 }
 
 .nav div.main_list {
@@ -81,14 +79,17 @@ body {
     line-height: 65px;
     font-size: 1.6rem;
     padding: 5px 10px;
+    text-shadow: 0 8px 20px rgba(0, 0, 0, 0.95);
 }
 
 .nav div.main_list ul li a:hover {
     padding: 5px 10px;
     border-radius: 10px;
     color: #000;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
+    text-shadow: 0 8px 20px rgba(255, 255, 255, 0.95);
+    /*background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);*/
 }
+
 
 
 /* Home section */
@@ -107,19 +108,24 @@ body {
 
 /* Media query section */
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 993px) and (max-width: 1024px) {
     .container {
         margin: 0;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 993px) {
     .navTrigger {
         display: block;
     }
 
     .nav div.logo {
         margin-left: 15px;
+        padding-top: 0 !important;
+    }
+
+    .nav div.logo a {
+        font-size: 1.6rem;
     }
 
     .nav div.main_list {
@@ -388,8 +394,6 @@ body {
 }
 
 
-
-
 /* Blog section */
 .blog-card {
     max-width: 1000px;
@@ -409,7 +413,7 @@ body {
     transition: all 0.2s;
     /*background-size: cover; !*100%;*!*/
     /*background-size: contain;*/
-    background-size: 100% 100% !important;
+    background-size: cover !important;
     /*margin: 15px;*/
 }
 
@@ -500,7 +504,7 @@ h3:after {
     height: 2px;
     margin: 10px auto;
     border: 0;
-    background: #BDA26B;
+    background: rgba(255, 255, 255, 0.6);
     transition: all 0.2s
 }
 

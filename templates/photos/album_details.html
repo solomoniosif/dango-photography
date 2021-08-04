@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Album Details
+{% endblock %}
+
+
+{% block stylesheet %}
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+    />
+{% endblock %}
+
+
+{% block content %}
+    {% include 'includes/small_header.html' %}
+    <section>
+        <div class="container">
+            {% for photo in photos %}
+                <a data-fancybox="gallery" href="{{ photo.image.url }}"><img src="{{ photo.image.url }}" alt=""
+                                                                             style="width: 100%; padding: 7px;"></a>
+                <p>{{ photo.description }}</p>
+
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+
+
+{% block javascript %}
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+{% endblock %}
