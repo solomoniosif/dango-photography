@@ -15,8 +15,11 @@
     - Add an 'About me' section on first page 
     - Implement a carousel on the first page
     - Pagination for blog
-    - ? Fancybox for post photos
     - ? Categories for posts
     - Implement a share button
     - Make a header for a blog post with the featured image of the post
+    - Implement an option to create password protected pages without the need to register - for displaying private photo galleries to clients
+    - 
 
+## DONE:
+    - Fancybox for album

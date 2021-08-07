@@ -16,16 +16,43 @@ class PostForm(forms.ModelForm):
 		self.helper.form_tag = True
 		self.helper.form_class = 'form-horizontal'
 		self.helper.label_class = 'col-md-3 create-label'
+		self.helper.field_class = 'col-md-9 mb-1'
+		self.helper.layout = Layout(
+			Div(
+				Field('title', placeholder="Title"),
+				Field('author'),
+				Field('status'),
+				Field('text'),
+				Field('tags'),
+				Field('slug'),
+				HTML("<hr>"),
+				Fieldset('Add photos', Formset('post_photos')),
+				HTML("<br>"),
+				ButtonHolder(Submit('submit', 'Create Post')),
+			)
+		)
+
+	class Meta:
+		model = Post
+		fields = ['title', 'author', 'status', 'text', 'tags', 'slug']
+
+
+class PostForm2(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		super(PostForm2, self).__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.form_tag = True
+		self.helper.form_class = 'form-horizontal'
+		self.helper.label_class = 'floatingInput'
 		self.helper.field_class = 'col-md-9'
 		self.helper.layout = Layout(
 			Div(
 				Field('title'),
 				Field('author'),
 				Field('status'),
-				Field('text'),
+				Field('text', css_class="form-floating"),
 				Field('tags'),
 				Field('slug'),
-				Fieldset('Add photos', Formset('post_photos')),
 				HTML("<br>"),
 				ButtonHolder(Submit('submit', 'Create Post')),
 			)
@@ -53,4 +80,3 @@ class PhotoForm(forms.ModelForm):
 
 
 PostFormSet = inlineformset_factory(Post, Photo, form=PhotoForm, extra=2, can_delete=True)
-

@@ -36,13 +36,8 @@
 <main>
     {% include 'includes/navbar.html' %}
 
-    <div class="global-container">
+    {% block content %}{% endblock %}
 
-        {% include 'includes/messages.html' %}
-
-        {% block content %}{% endblock %}
-
-    </div>
 </main>
 
 

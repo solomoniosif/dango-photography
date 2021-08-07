@@ -4,7 +4,6 @@
     Album Details
 {% endblock %}
 
-
 {% block stylesheet %}
     <link
             rel="stylesheet"
@@ -15,10 +14,11 @@
 {% block content %}
     <div class="global-container">
 
-        <div class="container">
+        <div class="container text-center ">
+        <h1 class="mb-5">{{ album.title|title }}</h1>
             <section>
                 <div class="masonry masonry--h">
-                    {% for photo in photos %}
+                    {% for photo in album.photos.all %}
                         <figure class="masonry-brick masonry-brick--h">
                             <a data-fancybox="gallery" href="{{ photo.image.url }}"><img src="{{ photo.image.url }}" alt="" class="masonry-img"></a>
                         </figure>

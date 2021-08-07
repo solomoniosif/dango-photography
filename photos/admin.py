@@ -7,10 +7,22 @@ class GalleryAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('title',)}
 
 
+class PhotoInline(admin.TabularInline):
+	model = Photo
+
+
 class AlbumAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('title',)}
-	list_display = ('title', 'is_featured')
+	list_display = ('title', 'photos', 'is_featured')
 	list_editable = ('is_featured',)
+	inlines = [PhotoInline]
+
+	def get_queryset(self, request):
+		return super().get_queryset(request).prefetch_related('photos')
+
+	@admin.display(description="Photos")
+	def photos(self, obj):
+		return obj.photos.all().count()
 
 
 class PhotoAdmin(admin.ModelAdmin):

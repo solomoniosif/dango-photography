@@ -2,9 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
 
-from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
-from cloudinary.models import CloudinaryField
 
 from photography_website import settings
 from core.models import BasePublishModel

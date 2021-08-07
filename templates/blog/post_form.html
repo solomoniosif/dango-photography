@@ -8,55 +8,83 @@
 
 
 {% block content %}
-    {% include 'includes/small_header.html' %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-lg-7">
+    <div class="global-container">
+        {% include 'includes/messages.html' %}
 
-            <form action="" method="POST" enctype="multipart/form-data">
+        <div class="row justify-content-md-center mt-90">
+            <div class="col-lg-7 p-4">
+                <h1 class="mb-3">Create New Post</h1>
 
-                {% for hidden_field in form.hidden_fields %}
-                    {{ hidden_field.errors }}
-                    {{ hidden_field }}
-                {% endfor %}
+                <form action="" method="post" class="row g-3 mb-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Title -->
+                    <div class="col-10">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Post Title"
+                                   required>
+                            <label for="title" class="form-label">Title</label>
+                            {% for error in form.title.errors %}
+                                <small class="text-danger ml-2">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                {% csrf_token %}
+                    <!-- Status -->
+                    <div class="col-2">
+                        <div class="form-floating">
+                            <select class="form-select" id="status" name="status">
+                                <option selected>Draft</option>
+                                <option value="1">Published</option>
+                                <option value="2">Private</option>
+                            </select>
+                            <label for="status" class="form-label">Status</label>
+                            {% for error in form.status.errors %}
+                                <small class="text-danger ml-2">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                {{ form.management_form }}
-                {{ form.non_form_errors }}
+                    <!-- Text -->
+                    <div class="col-12">
+                        <div class="form-floating">
+                        <textarea class="form-control" placeholder="Enter post text here" id="text" name="text"
+                                  style="height: 200px"></textarea>
+                            <label for="text" class="form-label">Text</label>
+                            {% for error in form.text.errors %}
+                                <small class="text-danger ml-2">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                <h1>Create New Post</h1>
+                    <!-- Tags -->
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Post tags">
+                            <label for="tags" class="form-label">Tags</label>
+                            {% for error in form.tags.errors %}
+                                <small class="text-danger ml-2">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-                {{ form|crispy }}
+                    <!-- Post Photos -->
+                    <div class="col-12">
+                        <label for="photos" class="form-label">Select photos</label>
+                        <input class="form-control form-control-lg" type="file" accept="image/*" id="photos"
+                               name="photos"
+                               multiple>
+                        {% for error in form.photos.errors %}
+                            <small class="text-danger ml-2">{{ error }}</small>
+                        {% endfor %}
+                    </div>
 
-                {% for photo_form in post_form.forms %}
-                    <hr>
-                    <h5>
-                        {% if photo_form.instance.id %}
-                            Photo: {{ photo_form.instance.title|title }}<br>
-                            <img src="{{ photo_form.instance.image.url }}" alt="" style="width: 100%; padding: 7px;">
-                        {% else %}
-                            {% if form.forms|length > 1 %}
-                                Add another photo
-                            {% else %}
-                                Add a photo
-                            {% endif %}
-                        {% endif %}
-                    </h5>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success w-100">Create Post</button>
+                    </div>
 
-                    {% for hidden_field in photo_form.hidden_fields %}
-                        {{ hidden_field.errors }}
-                    {% endfor %}
-
-                    {{ photo_form|crispy }}
-
-                {% endfor %}
-
-                <button type="submit" class="btn btn-success w-100 mb-3">Update Post</button>
-
-
-                <button type="submit" class="btn btn-success">Create Post</button>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 

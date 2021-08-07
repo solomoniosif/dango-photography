@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'includes/small_header.html' %}
     <div class="row justify-content-md-center">
         <div class="col-lg-7 text-center">
 
@@ -32,10 +31,9 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <a class="btn btn-warning w-100" href="{% url 'post_update' post.slug %}">Edit Post</a>
 
         </div>
-
+        <a class="btn btn-warning w-100" href="{% url 'post_update' post.slug %}">Edit Post</a>
     </div>
 
 {% endblock %}

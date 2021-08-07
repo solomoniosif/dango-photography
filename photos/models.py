@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_save
+from django.urls import reverse
 
 from taggit.managers import TaggableManager
 from cloudinary.models import CloudinaryField
@@ -29,9 +30,25 @@ class Album(models.Model):
 	def __str__(self):
 		return self.title
 
+	def get_featured_image_url(self):
+		images = self.photos.all()
+		if images.exists():
+			try:
+				featured_image = images.filter(is_featured=True).first()
+				return featured_image.image.url
+			except:
+				featured_image = images.first()
+				return featured_image.image.url
+		else:
+			return ''
+
+	def get_absolute_url(self):
+		return reverse('album_detail', args=[self.slug])
+
 	class Meta:
 		verbose_name = 'Album'
 		verbose_name_plural = 'Albums'
+		ordering = ['-is_featured', '-id']
 
 
 class Photo(models.Model):
@@ -56,6 +73,8 @@ class Photo(models.Model):
 	class Meta:
 		verbose_name = "photo"
 		verbose_name_plural = "photos"
+		ordering = ['id']
 
 
+pre_save.connect(slugify_pre_save, sender=Album)
 pre_save.connect(slugify_pre_save, sender=Photo)

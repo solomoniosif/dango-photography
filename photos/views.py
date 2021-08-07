@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
+from django.contrib import messages
 
 from .forms import PhotoForm, PhotoFormSet
-from .models import Photo
+from .models import Photo, Album
 
 
 def home(request):
@@ -12,7 +13,7 @@ def home(request):
 
 class PhotoListView(ListView):
 	model = Photo
-	template_name = 'photos/album_details.html'
+	template_name = 'photos/photo_list.html'
 	context_object_name = 'photos'
 
 
@@ -41,3 +42,15 @@ def upload_photo(request):
 			form.save()
 
 	return render(request, 'photos/add_photo.html', context)
+
+
+class AlbumListView(ListView):
+	model = Album
+	template_name = 'photos/album_list.html'
+	context_object_name = 'albums'
+
+
+class AlbumDetailView(DetailView):
+	model = Album
+	template_name = 'photos/album_detail.html'
+	context_object_name = 'album'
