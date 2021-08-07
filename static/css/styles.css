@@ -369,33 +369,6 @@ body {
 }
 
 
-.bg-cover {
-    background-size: cover !important;
-    height: 100vh;
-}
-
-.header-heading {
-    height: 80vh;
-    text-align: end;
-}
-
-.main-heading {
-    font-family: 'Aladin', cursive;
-    font-size: 8rem;
-}
-
-.sub-heading {
-    font-family: 'Zilla Slab Highlight', cursive;
-    font-size: 3rem;
-}
-
-.bg-cover-small {
-    background-size: cover !important;
-    height: 130px;
-    margin-bottom: 70px;
-}
-
-
 /* Blog section */
 .blog-card {
     max-width: 1000px;
@@ -710,12 +683,15 @@ h3:after {
 .masonry-brick:nth-child(4n+1) {
     width: 200px;
 }
+
 .masonry-brick:nth-child(4n+1):nth-child(4n+2) {
     width: 290px;
 }
+
 .masonry-brick:nth-child(4n+1):nth-child(4n+3) {
     width: 220px;
 }
+
 .masonry-brick:nth-child(4n+1):nth-child(4n+4) {
     width: 325px;
 }
@@ -734,4 +710,46 @@ h3:after {
 
 #homepage_carousel {
     height: 100vh;
+}
+
+.carousel-inner {
+    height: 100vh;
+}
+
+.carousel-item {
+    height: 100vh;
+}
+
+.homepage-title {
+    position: absolute;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+}
+
+.header-heading {
+    text-align: end;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.main-heading {
+    font-family: 'Aladin', cursive;
+    font-size: 12vmin;
+    align-items: center;
+}
+
+.sub-heading {
+    font-family: 'Zilla Slab Highlight', cursive;
+    font-size: 5vmin;
+}
+
+.contact-form-container {
+    padding: 60px 30px;
+}
+
+.contact-form-group {
+    margin: auto;
 }
