@@ -40,27 +40,23 @@ class PostForm(forms.ModelForm):
 class PostForm2(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(PostForm2, self).__init__(*args, **kwargs)
-		self.helper = FormHelper()
-		self.helper.form_tag = True
-		self.helper.form_class = 'form-horizontal'
-		self.helper.label_class = 'floatingInput'
-		self.helper.field_class = 'col-md-9'
-		self.helper.layout = Layout(
-			Div(
-				Field('title'),
-				Field('author'),
-				Field('status'),
-				Field('text', css_class="form-floating"),
-				Field('tags'),
-				Field('slug'),
-				HTML("<br>"),
-				ButtonHolder(Submit('submit', 'Create Post')),
-			)
-		)
 
 	class Meta:
 		model = Post
-		fields = ['title', 'author', 'status', 'text', 'tags', 'slug']
+		fields = ['title', 'status', 'text', 'tags', 'slug']
+		widget = {
+			'title': forms.TextInput(attrs={
+				'class': 'form-control',
+				'placeholder': 'Post Title'
+			}),
+			'status': forms.Select(attrs={
+				'class': 'form-control'
+			}),
+			'text': forms.Textarea(attrs={
+				'style': 'height: 200px'
+			})
+
+		}
 
 
 class PhotoForm(forms.ModelForm):
@@ -79,4 +75,4 @@ class PhotoForm(forms.ModelForm):
 		}
 
 
-PostFormSet = inlineformset_factory(Post, Photo, form=PhotoForm, extra=2, can_delete=True)
+PostFormSet = inlineformset_factory(Post, Photo, form=PhotoForm, can_delete=True)

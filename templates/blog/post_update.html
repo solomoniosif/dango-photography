@@ -13,7 +13,7 @@
         <div class="row justify-content-md-center mt-30">
             <div class="col-lg-7 p-3">
 
-                <h2 class="mb-5 text-center">Edit Post <i><b>{{ post.title }}</b></i></h2>
+                <h2 class="mb-5 text-center">Edit Post<i><b>{{ post.title }}</b></i></h2>
 
                 <form action="" method="post" enctype="multipart/form-data">
                     {% for hidden_field in form.hidden_fields %}
@@ -26,10 +26,7 @@
                     {{ form.management_form }}
                     {{ form.non_form_errors }}
 
-
                     {{ form|crispy }}
-
-
 
                     {% for photo_form in post_photos %}
                         <hr>
@@ -50,8 +47,10 @@
                         {% for hidden_field in photo_form.hidden_fields %}
                             {{ hidden_field.errors }}
                         {% endfor %}
-
-                        {{ photo_form|crispy }}
+                    <table>
+                    {{ photo_form.as_table }}
+                    </table>
+{#                        {{ photo_form|crispy }}#}
 
                     {% endfor %}
 

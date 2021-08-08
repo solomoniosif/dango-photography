@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 	'cloudinary',
 	"crispy_forms",
 	'forms_fieldset',
+	'extra_views',
 
 	# Local apps
 	'core',
