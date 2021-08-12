@@ -1,4 +1,4 @@
-<nav class="nav">
+<nav class="nav main-nav">
     <div class="container">
         <div class="logo">
             <a href="{% url 'home' %}">Django Photography</a>
@@ -9,7 +9,7 @@
                 <li><a href="{% url 'albums' %}">Albums</a></li>
                 <li><a href="{% url 'photo_list' %}">Galleries</a></li>
                 <li><a href="">About me</a></li>
-                <li><a href="#contact-form">Contact</a></li>
+                <li><a href="{% url 'home' %}#contact-form">Contact</a></li>
             </ul>
         </div>
         <span class="navTrigger">

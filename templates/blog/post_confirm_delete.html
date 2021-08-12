@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Create Post
+{% endblock %}
+
+
+{% block content %}
+    <div class="global-container">
+
+        <div class="row justify-content-md-center mt-30">
+            <div class="col-lg-8 col-md-10 white-box">
+
+                <h3><a style="text-decoration: none;" href="{% url 'blog' %}">&#8592; Go Back</a></h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <h3>Are you sure you want to delete the post <b>{{ post.title|title }}</b>?</h3>
+                    <h4>{{ product.name }}</h4>
+                    <input type="submit" class="btn btn-danger" value="Delete"/>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+

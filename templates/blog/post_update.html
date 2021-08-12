@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
 
 {% block title %}
     Edit Post
@@ -11,53 +11,78 @@
     <div class="global-container">
 
         <div class="row justify-content-md-center mt-30">
-            <div class="col-lg-7 p-3">
+            <div class="col-xl-8 col-lg-9 col-md-10">
 
-                <h2 class="mb-5 text-center">Edit Post<i><b>{{ post.title }}</b></i></h2>
-
-                <form action="" method="post" enctype="multipart/form-data">
-                    {% for hidden_field in form.hidden_fields %}
-                        {{ hidden_field.errors }}
-                        {{ hidden_field }}
-                    {% endfor %}
-
+                <form action="" method="post" class="row g-3 mb-3 white-box" enctype="multipart/form-data">
+                    <h2 class="mb-3 text-center"><b>Edit Post </b>{{ post.title }}</h2>
                     {% csrf_token %}
 
-                    {{ form.management_form }}
-                    {{ form.non_form_errors }}
-
-                    {{ form|crispy }}
-
-                    {% for photo_form in post_photos %}
-                        <hr>
-                        <h5>
-                            {% if photo_form.instance.id %}
-                                Photo: {{ photo_form.instance.title|title }}<br>
-                                <img src="{{ photo_form.instance.image.url }}" alt=""
-                                     style="width: 100%; padding: 7px;">
-                            {% else %}
-                                {% if form.forms|length > 1 %}
-                                    Add another photo
-                                {% else %}
-                                    Add a photo
-                                {% endif %}
-                            {% endif %}
-                        </h5>
-
-                        {% for hidden_field in photo_form.hidden_fields %}
-                            {{ hidden_field.errors }}
-                        {% endfor %}
-                    <table>
-                    {{ photo_form.as_table }}
-                    </table>
-{#                        {{ photo_form|crispy }}#}
-
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
                     {% endfor %}
 
-                    <button type="submit" class="btn btn-success w-100 mb-3">Update Post</button>
+                    <div class="col-10">
+                        {{ form.title|as_crispy_field }}
+                    </div>
+
+                    <div class="col-2">
+                        {{ form.status|as_crispy_field }}
+                    </div>
+
+                    <div class="col-12">
+                        {{ form.text|as_crispy_field }}
+                    </div>
+
+                    <div class="col-12">
+                        {{ form.tags|as_crispy_field }}
+                    </div>
+                    <h3 class="py-2">Post Photos</h3>
+
+                    <div class="col-12">
+                        <div class="row">
+
+                            {% for formset in inlines %}
+                                {{ formset.management_form|crispy }}
+                                {{ formset|as_crispy_errors }}
+                                {% for photo_form in formset %}
+
+                                    <div class="col-md-12 col-lg-6 p-2 d-inline-flex align-self-stretch">
+                                        <div class="form-photo-box w-100">
+                                            {% if photo_form.instance.id %}
+
+                                                <img src="{{ photo_form.instance.image.url }}" alt=""
+                                                     style="width: 100%; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+
+                                            {% else %}
+                                                {% if formset.forms|length > 1 %}
+                                                    <div class="p-3"><b>Add another photo</b></div>
+                                                {% else %}
+                                                    <div class="p-3"><b>Add a photo</b></div>
+                                                {% endif %}
+                                            {% endif %}
+                                            <div class="p-2">
+                                                {{ photo_form|crispy }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="row">
+                            <div class="col-2">
+                                <a href="{% url 'post_detail' post.slug %}"
+                                   class="btn btn-outline-secondary w-100 mb-3">Cancel</a>
+                            </div>
+                            <div class="col-10">
+                                <button type="submit" class="btn btn-success w-100 mb-3">Update Post</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock content %}
 

@@ -2,11 +2,11 @@ from django import forms
 from django.forms.models import inlineformset_factory
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Field, Fieldset, Div, Row, Column, HTML, ButtonHolder, Submit
 from .custom_layout_object import Formset
 
 from .models import Post
-from photos.models import Photo
+from photos.models import Photo, Album
 
 
 class PostForm(forms.ModelForm):
@@ -20,13 +20,12 @@ class PostForm(forms.ModelForm):
 		self.helper.layout = Layout(
 			Div(
 				Field('title', placeholder="Title"),
-				Field('author'),
 				Field('status'),
 				Field('text'),
 				Field('tags'),
 				Field('slug'),
 				HTML("<hr>"),
-				Fieldset('Add photos', Formset('post_photos')),
+				Fieldset('Add photos to post', Formset('post_photos')),
 				HTML("<br>"),
 				ButtonHolder(Submit('submit', 'Create Post')),
 			)
@@ -34,28 +33,28 @@ class PostForm(forms.ModelForm):
 
 	class Meta:
 		model = Post
-		fields = ['title', 'author', 'status', 'text', 'tags', 'slug']
+		fields = ['title', 'status', 'text', 'tags', 'slug']
 
 
 class PostForm2(forms.ModelForm):
-	def __init__(self, *args, **kwargs):
-		super(PostForm2, self).__init__(*args, **kwargs)
-
 	class Meta:
 		model = Post
 		fields = ['title', 'status', 'text', 'tags', 'slug']
-		widget = {
-			'title': forms.TextInput(attrs={
-				'class': 'form-control',
-				'placeholder': 'Post Title'
-			}),
-			'status': forms.Select(attrs={
-				'class': 'form-control'
-			}),
-			'text': forms.Textarea(attrs={
-				'style': 'height: 200px'
-			})
 
+
+class PostForm3(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ['title', 'status', 'text', 'tags']
+		widgets = {
+			'title': forms.TextInput(attrs={
+			}),
+			'status': forms.Select(),
+			'text': forms.Textarea(attrs={
+				'placeholder': 'Add post text here',
+				'rows': 7,
+				'cols': 70
+			}),
 		}
 
 
@@ -68,11 +67,12 @@ class PhotoForm(forms.ModelForm):
 				'style': 'width: 240px;'
 			}),
 			'description': forms.Textarea(attrs={
-				'placeholder': 'Add a short photo description that will be displayed below the photo on the post (optional)',
+				'placeholder': 'Add a short photo description that will be displayed below the photo (optional)',
 				'rows': 1,
 				'cols': 70
 			}),
 		}
 
 
-PostFormSet = inlineformset_factory(Post, Photo, form=PhotoForm, can_delete=True)
+class SelectAlbumForm(forms.Form):
+	album = forms.ModelChoiceField(queryset=Album.objects.all())

@@ -11,8 +11,13 @@
         {% include 'includes/messages.html' %}
 
 
-
         <h1 class="mb-5">Latest Posts</h1>
+
+        {% if request.user.is_authenticated %}
+            <br>
+            <a class="btn btn-outline-secondary mb-3" href="{% url 'create' %}">Create Post</a>
+            <a class="btn btn-outline-secondary mb-3" href="{% url 'create_post' %}">Create Post Bulk Upload</a>
+        {% endif %}
 
         <div class="row">
             {% for post in posts %}
