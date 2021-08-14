@@ -29,7 +29,7 @@ class Post(BasePublishModel):
 			return ''
 
 	def get_absolute_url(self):
-		return reverse('post_detail', args=[self.slug])
+		return reverse('blog:post_detail', args=[self.slug])
 
 	def __str__(self):
 		return self.title

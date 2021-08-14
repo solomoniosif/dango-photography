@@ -30,12 +30,12 @@ class PostListView(ListView):
 
 class PostDeleteView(DeleteView):
 	model = Post
-	success_url = reverse_lazy('blog')
+	success_url = reverse_lazy('blog:home')
 
 
 class PostCreateView(CreateView):
 	model = Post
-	template_name = 'blog/post_create_2.html'
+	template_name = 'blog/post_create_bulk.html'
 	form_class = PostForm3
 	success_url = None
 
@@ -60,62 +60,14 @@ class PostCreateView(CreateView):
 		return HttpResponseRedirect(self.get_success_url())
 
 	def get_success_url(self):
-		return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+		return reverse_lazy('blog:post_detail', kwargs={'slug': self.object.slug})
 
-
-# class PostUpdateView(UpdateView):
-# 	model = Post
-# 	template_name = 'blog/post_update.html'
-# 	form_class = PostForm
-# 	formset_class = PostFormSet
-# 	success_url = None
-#
-# 	def get_context_data(self, **kwargs):
-# 		context = super(PostUpdateView, self).get_context_data(**kwargs)
-# 		if self.request.POST:
-# 			context['post_photos'] = PostFormSet(self.request.POST, self.request.FILES, instance=self.object)
-# 		else:
-# 			context['post_photos'] = PostFormSet(instance=self.object)
-# 		return context
-
-# def post(self, request, *args, **kwargs):
-# 	self.object = self.get_object()
-# 	form_class = self.get_form_class()
-# 	form = self.get_form(form_class)
-# 	formset = PostFormSet(self.request.POST, self.request.FILES, instance=self.object)
-#
-# 	if form.is_valid():
-# 		for fs in formset:
-# 			if fs.is_valid():
-# 				fs.save()
-# 		messages.success(self.request, 'Post edited successfully')
-# 		return self.form_valid(form)
-# 	return self.form_invalid(form)
-
-# def form_valid(self, form):
-# 	context = self.get_context_data()
-# 	post_photos = context['post_photos']
-# 	if post_photos.is_valid():
-# 		self.object = form.save()
-# 		post_photos.instance = self.object
-# 		post_photos.save()
-# 		messages.add_message(self.request, messages.SUCCESS, f"Post '{self.object.title}' was updated.")
-# 		return super(PostUpdateView, self).form_valid(form)
-# 	else:
-# 		return render(self.request, self.template_name, self.get_context_data(form=form))
-#
-# def get_success_url(self):
-# 	return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
-
-
-############################################################
-############################################################
 
 class PhotoInline(InlineFormSetFactory):
 	model = Photo
 	form_class = PhotoForm
 	fields = ['image', 'description', 'is_featured']
-	extra_forms = 3
+	extra_forms = 1
 	can_delete = True
 
 	def get_factory_kwargs(self):
@@ -145,7 +97,7 @@ class PostCreateWithInlinesView(CreateWithInlinesView):
 		return response
 
 	def get_success_url(self):
-		return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+		return reverse_lazy('blog:post_detail', kwargs={'slug': self.object.slug})
 
 
 class PostUpdateWithInlinesView(UpdateWithInlinesView):
@@ -153,34 +105,3 @@ class PostUpdateWithInlinesView(UpdateWithInlinesView):
 	form_class = PostForm3
 	inlines = [PhotoInline, ]
 	template_name = 'blog/post_update.html'
-
-
-############################################################
-############################################################
-
-
-def create_post(request):
-	if request.method == 'POST':
-		post_data = request.POST
-		photos = request.FILES.getlist('photos')
-
-		new_post = Post.objects.create(
-			author=request.user,
-			title=post_data['title'],
-			status=post_data['status'],
-			text=post_data['text'],
-			tags=post_data['tags']
-		)
-		if photos:
-			new_album = Album.objects.create(title=post_data['title'])
-			for photo in photos:
-				new_photo = Photo.objects.create(
-					album=new_album,
-					post=new_post,
-					tags=post_data['tags'],
-					image=photo,
-				)
-		messages.success(request, f"'{post_data['title']}' created successfully")
-		return reverse_lazy('blog')
-
-	return render(request, 'blog/post_form.html')

@@ -14,14 +14,15 @@
 
                 <form action="" method="post" class="row g-3 mb-3 white-box" enctype="multipart/form-data">
                     <h2 class="mb-3 text-center">Create <b>New Post</b></h2>
-                    <ul class="nav nav-tabs nav-pills nav-fill mb-5">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'create_bulk' %}">Bulk photo upload</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'create' %}">One-by-one photo upload</a>
-                        </li>
-                    </ul>
+
+                    <div class="col-6">
+                        <a class="btn btn-outline-secondary  w-100"  href="{% url 'blog:create' %}">One-by-one photo upload</a>
+                    </div>
+
+                    <div class="col-6">
+                        <a class="btn btn-secondary w-100"  href="{% url 'blog:create_bulk' %}">Bulk photo upload</a>
+                    </div>
+
                     {% csrf_token %}
 
                     {% for hidden in form.hidden_fields %}
@@ -58,7 +59,7 @@
                     <div class="col-lg-12 mt-3">
                         <div class="row">
                             <div class="col-2">
-                                <a href="{% url 'blog' %}"
+                                <a href="{% url 'blog:home' %}"
                                    class="btn btn-outline-secondary w-100 mb-3">Cancel</a>
                             </div>
                             <div class="col-10">
