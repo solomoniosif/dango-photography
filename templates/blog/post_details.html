@@ -12,7 +12,7 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-7 text-center">
                 <h1>{{ post.title }}</h1>
-
+                <hr class="blog-title-hr" data-content="">
                 <p>By <b>{{ post.author|title }}</b> on <b>{{ post.created_on|date:"d M Y" }}</b></p>
 
                 {% if request.user.is_authenticated %}
