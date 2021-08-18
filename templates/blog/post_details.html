@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load comments comments_xtd %}
 
 {% block title %}
     {{ post.title }}
@@ -12,12 +13,14 @@
         <div class="row justify-content-md-center">
             <div class="col-lg-7 text-center">
                 <h1>{{ post.title }}</h1>
-                <hr class="blog-title-hr" data-content="">
+                <hr class="half-gradient-hr">
                 <p>By <b>{{ post.author|title }}</b> on <b>{{ post.created_on|date:"d M Y" }}</b></p>
 
-                {% if request.user.is_authenticated %}
-                    <a class="btn btn-outline-secondary mb-3" href="{% url 'blog:update' post.slug %}">Edit Post</a>
-                    <a class="btn btn-danger mb-3" href="{% url 'blog:delete' post.slug %}">Delete Post</a>
+                {% if request.user.is_authenticated and post.author == request.user %}
+                    <a class="btn btn-outline-secondary btn-sm mb-3" href="{% url 'blog:update' post.slug %}"><i
+                            class="bi bi-pencil-square"></i></a>
+                    <a class="btn btn-danger btn-sm mb-3" href="{% url 'blog:delete' post.slug %}"><i
+                            class="bi bi-trash"></i></a>
                 {% endif %}
 
                 <div class="tags-container mt-0 mb-3">
@@ -34,12 +37,49 @@
                     {% for photo in post.post_photos.all %}
                         <img src="{{ photo.image.url }}" alt="" style="width: 100%; padding: 7px;">
                         {% if photo.description %}
-                            <h6>{{ photo.description }}</h6>
+                            <h6>{{ photo.description|linebreaks }}</h6>
                             <br>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
             </div>
+
+            <!-- Comments Section -->
+            <div class="col-lg-7 p-3">
+
+                <div class="card card-block mb-5">
+                    <div class="card-body px-5">
+                        {% get_comment_count for object as comment_count %}
+                        <div class="py-4 text-center">
+                            <a href="{% url 'blog:home' %}">Back to the post list</a>
+                            &nbsp;&sdot;&nbsp;
+                            {{ comment_count }} comment{{ comment_count|pluralize }}
+                            ha{{ comment_count|pluralize:"s,ve" }} been posted.
+                        </div>
+
+                        {% if comment_count %}
+                            <div class="comments">
+                                {% render_xtdcomment_tree for post %}
+                            </div>
+                        {% endif %}
+                        <h4 class="card-title text-center pb-3">Post your comment</h4>
+                        {% render_comment_form for post %}
+                    </div>
+                </div>
+
+                {% for object in object_list %}
+                    ...
+                    {% get_comment_count for object as comment_count %}
+                    <p class="date">Published {{ object.publish }}
+                        {% if comment_count %}
+                            &sdot;&nbsp;{{ comment_count }} comment{{ comment_count|pluralize }}
+                        {% endif %}
+                    </p>
+                    ...
+                {% endfor %}
+            </div>
+            <!-- End Comments Section -->
+
 
         </div>
     </div>

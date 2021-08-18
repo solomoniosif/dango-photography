@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'photos'
+
 urlpatterns = [
 	path('', views.home, name='home'),
 	path('photos/', views.PhotoListView.as_view(), name='photo_list'),
@@ -8,4 +10,5 @@ urlpatterns = [
 	path('photos/add-photo/', views.upload_photo, name='add_photo'),
 	path('albums/', views.AlbumListView.as_view(), name='albums'),
 	path('albums/<slug:slug>', views.AlbumDetailView.as_view(), name='album_detail'),
+	path('albums/delete/<slug:slug>', views.AlbumDeleteView.as_view(), name='album_delete'),
 ]

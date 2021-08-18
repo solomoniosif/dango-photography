@@ -24,13 +24,13 @@ urlpatterns = [
 				  path('__debug__/', include(debug_toolbar.urls)),
 				  path('accounts/', include('accounts.urls')),
 				  # path('accounts/', include('django.contrib.auth.urls')),
-				  path('', include('photos.urls')),
+				  path('', include('photos.urls', namespace='photos')),
 				  path('blog/', include('blog.urls', namespace='blog')),
+				  path(r'comments/', include('django_comments_xtd.urls')),
 			  ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = "Django Photography"
 admin.site.site_title = "Django Photography"
-
 
 if settings.DEBUG:
 	from django.conf.urls.static import static
@@ -43,6 +43,5 @@ if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 	urlpatterns = [path('__debug__/', include(debug_toolbar.urls)), ] + urlpatterns
-
 
 SHOW_TOOLBAR_CALLBACK = True

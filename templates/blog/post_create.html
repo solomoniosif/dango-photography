@@ -12,8 +12,10 @@
 
                 <form action="" method="post" class="row g-3 mb-3 white-box"
                       enctype="multipart/form-data">
-                    <h2 class="mb-3 text-center">Create <b>New Post</b></h2>
-
+                    <h2 class="mb-0 text-center">Create <b>New Post</b></h2>
+                    <div class="col-12">
+                        <hr class="half-gradient-hr">
+                    </div>
                     <div class="col-6">
                         <a class="btn btn-secondary  w-100" href="{% url 'blog:create' %}">One-by-one photo
                             upload</a>
@@ -45,7 +47,14 @@
                     <div class="col-12">
                         {{ form.tags|as_crispy_field }}
                     </div>
-                    <h3 class="py-2">Post Photos</h3>
+
+
+                    <h3 class="mt-2 text-center">Post Photos</h3>
+                    <hr class="half-gradient-hr">
+                    <div class="form-group">
+                        <input type="checkbox" class="form-check-input" name="new_album" id="new-album" checked>
+                        <label class="form-check-label" for="new-album">Create new album with this post photos</label>
+                    </div>
 
                     <div class="col-12">
                         <div class="row" id="post_form">
@@ -54,14 +63,12 @@
                                 {{ formset.management_form }}
                                 {{ formset|as_crispy_errors }}
 
-
                                 {% for photo_form in formset %}
-
 
                                     <div class="col-md-12 col-lg-6 p-2 d-inline-flex align-self-stretch image-form">
                                         <div class="form-photo-box w-100">
                                             <div class="p-3"><b>Add a photo</b></div>
-                                            <div class="p-2 no_error">
+                                            <div class="p-2">
                                                 {{ photo_form|crispy }}
                                                 <button class="align-self-center btn btn-danger delete-image-form">
                                                     Delete
@@ -73,8 +80,8 @@
 
                                     <div id="form-end-hidden" style="display: none;"></div>
                                 {% endfor %}
-                                <div class="col-6">
-                                    <button id="add-image-form" class="btn btn-primary my-2">Add Another Image</button>
+                                <div class="col-12">
+                                    <button id="add-image-form" class="btn btn-link my-2">Add Another Image</button>
                                 </div>
                             {% endfor %}
                         </div>
@@ -98,16 +105,3 @@
         </div>
     </div>
 {% endblock content %}
-
-{#{% block javascript %}#}
-{##}
-{#    <script type="application/javascript">#}
-{#        $('#add_more').click(function () {#}
-{#            var form_idx = $('#post_photos-TOTAL_FORMS').val();#}
-{#            console.log(form_idx)#}
-{#            $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));#}
-{#            $('#post_photos-TOTAL_FORMS').val(parseInt(form_idx) + 1);#}
-{#        });#}
-{#    </script>#}
-{##}
-{#{% endblock %}#}

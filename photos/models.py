@@ -43,7 +43,7 @@ class Album(models.Model):
 			return ''
 
 	def get_absolute_url(self):
-		return reverse('album_detail', args=[self.slug])
+		return reverse('photos:album_detail', args=[self.slug])
 
 	class Meta:
 		verbose_name = 'Album'

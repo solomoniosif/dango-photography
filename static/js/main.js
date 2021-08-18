@@ -40,7 +40,7 @@ addImageFormBtn.addEventListener("click", function (event) {
 mainForm.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete-image-form")) {
         event.preventDefault();
-        event.target.parentElement.remove();
+        event.target.parentElement.parentElement.parentElement.remove();
         formCount--;
         updateForms();
         totalForms.setAttribute('value', `${formCount + 1}`);

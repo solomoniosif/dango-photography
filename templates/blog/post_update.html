@@ -1,20 +1,17 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% load widget_tweaks %}
 
-{% block title %}
-    Edit Post
-{% endblock %}
-
+{% block title %}Edit Post {{ post.title }}{% endblock %}
 
 {% block content %}
     <div class="global-container">
+        {% include 'includes/messages.html' %}
 
         <div class="row justify-content-md-center mt-30">
             <div class="col-xl-8 col-lg-9 col-md-10">
 
                 <form action="" method="post" class="row g-3 mb-3 white-box" enctype="multipart/form-data">
-                    <h2 class="mb-3 text-center"><b>Edit Post </b>{{ post.title }}</h2>
+                    <h2 class="mb-3 text-center">Edit Post <b>{{ post.title }}</b></h2>
                     {% csrf_token %}
 
                     {% for hidden in form.hidden_fields %}
@@ -36,36 +33,44 @@
                     <div class="col-12">
                         {{ form.tags|as_crispy_field }}
                     </div>
-                    <h3 class="py-2">Post Photos</h3>
+
+                    <h3 class="mt-2 text-center">Post Photos</h3>
+                    <hr class="half-gradient-hr">
 
                     <div class="col-12">
-                        <div class="row">
+                        <div class="row" id="post_form">
 
                             {% for formset in inlines %}
                                 {{ formset.management_form|crispy }}
                                 {{ formset|as_crispy_errors }}
                                 {% for photo_form in formset %}
 
-                                    <div class="col-md-12 col-lg-6 p-2 d-inline-flex align-self-stretch">
-                                        <div class="form-photo-box w-100">
-                                            {% if photo_form.instance.id %}
-
+                                    {% if photo_form.instance.id %}
+                                        <div class="col-md-12 col-lg-6 p-2 d-inline-flex align-self-stretch">
+                                            <div class="form-photo-box w-100">
                                                 <img src="{{ photo_form.instance.image.url }}" alt=""
                                                      style="width: 100%; border-top-left-radius: 8px; border-top-right-radius: 8px;">
-
-                                            {% else %}
-                                                {% if formset.forms|length > 1 %}
-                                                    <div class="p-3"><b>Add another photo</b></div>
-                                                {% else %}
-                                                    <div class="p-3"><b>Add a photo</b></div>
-                                                {% endif %}
-                                            {% endif %}
-                                            <div class="p-2">
-                                                {{ photo_form|crispy }}
+                                                <div class="p-2">
+                                                    {{ photo_form|crispy }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% else %}
+                                        <div class="col-md-12 col-lg-6 p-2 d-inline-flex align-self-stretch image-form">
+                                            <div class="form-photo-box w-100">
+                                                <div class="p-3"><b>Add a photo</b></div>
+                                                <div class="p-2">
+                                                    {{ photo_form|crispy }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    <div id="form-end-hidden" style="display: none;"></div>
                                 {% endfor %}
+                                <div class="col-12">
+                                    <button id="add-image-form" class="btn btn-link my-2">Add Another Image</button>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>

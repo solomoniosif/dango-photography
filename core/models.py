@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from .managers import PublishedManager
+
 
 class BasePublishModel(models.Model):
 	class PublishStatus(models.TextChoices):
@@ -15,19 +17,25 @@ class BasePublishModel(models.Model):
 		auto_now_add=False, auto_now=False, null=True)
 
 	def save(self, *args, **kwargs):
-		if self.state_is_published and self.published_on is None:
+		if self.is_published and self.published_on is None:
 			self.published_on = timezone.now()
 		else:
 			self.published_on = None
 		super().save(*args, **kwargs)
 
 	@property
-	def state_is_published(self):
+	def is_published(self):
 		return self.status == self.PublishStatus.PUBLISHED
 
 	@property
-	def is_published(self):
-		return self.state_is_published and self.published_on < timezone.now()
+	def is_draft(self):
+		return self.status == self.PublishStatus.DRAFT
+
+	@property
+	def is_private(self):
+		return self.status == self.PublishStatus.PRIVATE
+
+	objects = PublishedManager()
 
 	class Meta:
 		abstract = True

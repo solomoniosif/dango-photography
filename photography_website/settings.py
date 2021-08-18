@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.sites',
 
 	# Third party apps
 	'taggit',
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
 	'extra_views',
 	'widget_tweaks',
 	'debug_toolbar',
+	'django_comments_xtd',
+	'django_comments',
 
 	# Local apps
 	'core',
@@ -158,6 +161,25 @@ cloudinary.config(
 	api_key=CLOUDINARY_API_KEY,
 	api_secret=CLOUDINARY_API_SECRET
 )
+
+# Django Comments Xtd Configuration
+COMMENTS_APP = 'django_comments_xtd'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#  To help obfuscating comments before they are sent for confirmation.
+COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
+					 b"Aequam memento rebus in arduis servare mentem.")
+
+# Source mail address used for notifications.
+COMMENTS_XTD_FROM_EMAIL = "noreply@example.com"
+
+# Contact mail address to show in messages.
+COMMENTS_XTD_CONTACT_EMAIL = "helpdesk@example.com"
+
+SITE_ID = 1
+
+COMMENTS_XTD_MAX_THREAD_LEVEL = 1  # default is 0
+COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')  # default is ('thread_id', 'order')
 
 # DEBUG_TOOLBAR_CONFIG = {
 # 	"SHOW_TOOLBAR_CALLBACK": lambda request: True,

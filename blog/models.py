@@ -14,7 +14,7 @@ class Post(BasePublishModel):
 	title = models.CharField(max_length=255)
 	text = models.TextField(null=True, blank=True)
 	slug = models.SlugField(null=True, blank=True, db_index=True)
-	tags = TaggableManager()
+	tags = TaggableManager(blank=True)
 
 	def get_featured_image_url(self):
 		images = self.post_photos.all()

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, DeleteView
 from django.contrib import messages
 
 from .forms import PhotoForm, PhotoFormSet
@@ -54,3 +54,8 @@ class AlbumDetailView(DetailView):
 	model = Album
 	template_name = 'photos/album_detail.html'
 	context_object_name = 'album'
+
+
+class AlbumDeleteView(DeleteView):
+	model = Album
+	success_url = reverse_lazy('photos:albums')

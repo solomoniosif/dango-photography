@@ -10,39 +10,6 @@ from photos.models import Photo, Album
 
 
 class PostForm(forms.ModelForm):
-	def __init__(self, *args, **kwargs):
-		super(PostForm, self).__init__(*args, **kwargs)
-		self.helper = FormHelper()
-		self.helper.form_tag = True
-		self.helper.form_class = 'form-horizontal'
-		self.helper.label_class = 'col-md-3 create-label'
-		self.helper.field_class = 'col-md-9 mb-1'
-		self.helper.layout = Layout(
-			Div(
-				Field('title', placeholder="Title"),
-				Field('status'),
-				Field('text'),
-				Field('tags'),
-				Field('slug'),
-				HTML("<hr>"),
-				Fieldset('Add photos to post', Formset('post_photos')),
-				HTML("<br>"),
-				ButtonHolder(Submit('submit', 'Create Post')),
-			)
-		)
-
-	class Meta:
-		model = Post
-		fields = ['title', 'status', 'text', 'tags', 'slug']
-
-
-class PostForm2(forms.ModelForm):
-	class Meta:
-		model = Post
-		fields = ['title', 'status', 'text', 'tags', 'slug']
-
-
-class PostForm3(forms.ModelForm):
 	class Meta:
 		model = Post
 		fields = ['title', 'status', 'text', 'tags']

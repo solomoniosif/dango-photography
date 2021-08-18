@@ -12,7 +12,7 @@ from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithI
 from extra_views.contrib.mixins import SuccessMessageWithInlinesMixin
 
 from photos.models import Photo, Album
-from .forms import PostForm, PostForm2, PostForm3, PhotoForm, SelectAlbumForm
+from .forms import PostForm, PhotoForm, SelectAlbumForm
 from .models import Post
 
 
@@ -25,7 +25,19 @@ class PostDetailView(DetailView):
 class PostListView(ListView):
 	template_name = 'blog/post_list.html'
 	model = Post
+	queryset = Post.objects.published()
 	context_object_name = 'posts'
+
+
+class UserPostListView(ListView):
+	template_name = 'blog/post_list.html'
+	model = Post
+	context_object_name = 'posts'
+
+	def get_queryset(self):
+		qs = super().get_queryset()
+		user_posts = qs.filter(author=self.request.user)
+		return user_posts
 
 
 class PostDeleteView(DeleteView):
@@ -36,19 +48,14 @@ class PostDeleteView(DeleteView):
 class PostCreateView(CreateView):
 	model = Post
 	template_name = 'blog/post_create_bulk.html'
-	form_class = PostForm3
+	form_class = PostForm
 	success_url = None
-
-	def get_context_data(self, **kwargs):
-		context = super(PostCreateView, self).get_context_data(**kwargs)
-		context['select_album_form'] = SelectAlbumForm
-		return context
 
 	def form_valid(self, form):
 		self.object = form.save()
 		photos = self.request.FILES.getlist('photos')
 		if photos:
-			new_album = Album.objects.create(title=self.object.title)
+			new_album = Album.objects.create(title=self.object.title) if 'new_album' in self.request.POST else None
 			for photo in photos:
 				new_photo = Photo.objects.create(
 					album=new_album,
@@ -78,7 +85,7 @@ class PhotoInline(InlineFormSetFactory):
 
 class PostCreateWithInlinesView(CreateWithInlinesView):
 	model = Post
-	form_class = PostForm3
+	form_class = PostForm
 	inlines = [PhotoInline, ]
 	template_name = 'blog/post_create.html'
 	success_url = None
@@ -87,7 +94,7 @@ class PostCreateWithInlinesView(CreateWithInlinesView):
 		form.instance.author = self.request.user
 		self.object = form.save()
 		response = self.form_valid(form)
-		new_album = Album.objects.create(title=self.object.title)
+		new_album = Album.objects.create(title=self.object.title) if 'new_album' in self.request.POST else None
 		for formset in inlines:
 			for form in formset:
 				new_photo = form.save(commit=False)
@@ -102,6 +109,6 @@ class PostCreateWithInlinesView(CreateWithInlinesView):
 
 class PostUpdateWithInlinesView(UpdateWithInlinesView):
 	model = Post
-	form_class = PostForm3
+	form_class = PostForm
 	inlines = [PhotoInline, ]
 	template_name = 'blog/post_update.html'
