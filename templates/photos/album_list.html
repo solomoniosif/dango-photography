@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 
 {% block title %}
     Albums
@@ -15,12 +15,10 @@
 
                 <div class="col-md-12 col-lg-6">
                     <div class="blog-card"
-                         style="background: url({{ album.get_featured_image_url }}) center no-repeat; ">
+                         style="background: url({{ album.get_featured_image_url }}) center no-repeat; cursor: pointer;"
+                         onclick="location.href='{{ album.get_absolute_url }}';">
                         <div class="title-content">
                             <h3><a href="{{ album.get_absolute_url }}">{{ album.title|title }}</a></h3>
-                        </div>
-                        <div class="card-info">
-                            <a href="{{ album.get_absolute_url }}">See Album</a>
                         </div>
                     </div>
                 </div>

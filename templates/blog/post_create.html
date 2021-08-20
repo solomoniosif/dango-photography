@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}Create Post{% endblock %}
@@ -7,7 +7,7 @@
     <div class="global-container">
         {% include 'includes/messages.html' %}
 
-        <div class="row justify-content-md-center mt-90">
+        <div class="row justify-content-md-center">
             <div class="col-xl-8 col-lg-9 col-md-10">
 
                 <form action="" method="post" class="row g-3 mb-3 white-box"
@@ -16,14 +16,16 @@
                     <div class="col-12">
                         <hr class="half-gradient-hr">
                     </div>
-                    <div class="col-6">
-                        <a class="btn btn-secondary  w-100" href="{% url 'blog:create' %}">One-by-one photo
-                            upload</a>
-                    </div>
 
-                    <div class="col-6">
-                        <a class="btn btn-outline-secondary w-100" href="{% url 'blog:create_bulk' %}">Bulk photo
-                            upload</a>
+                    <div class="col-12">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item list-group-item-action list-group-item-warning w-50 text-center">
+                            <a href="{% url 'blog:create' %}" style="text-decoration: none; color: black; font-weight: bold;">One-by-one photo upload</a>
+                        </li>
+                        <li class="list-group-item list-group-item-action list-group-item-light w-50 text-center">
+                            <a href="{% url 'blog:create_bulk' %}" style="text-decoration: none; color: black;">Bulk photo upload</a>
+                        </li>
+                    </ul>
                     </div>
 
                     {% csrf_token %}
@@ -48,12 +50,13 @@
                         {{ form.tags|as_crispy_field }}
                     </div>
 
-
-                    <h3 class="mt-2 text-center">Post Photos</h3>
+                    <div class="col-12">
+                        <h3 class="mt-2 text-center">Post Photos</h3>
+                    </div>
                     <hr class="half-gradient-hr">
-                    <div class="form-group">
+                    <div class="form-group py-2">
                         <input type="checkbox" class="form-check-input" name="new_album" id="new-album" checked>
-                        <label class="form-check-label" for="new-album">Create new album with this post photos</label>
+                        <label class="form-check-label" for="new-album">Create a new album with this post photos</label>
                     </div>
 
                     <div class="col-12">
@@ -81,7 +84,7 @@
                                     <div id="form-end-hidden" style="display: none;"></div>
                                 {% endfor %}
                                 <div class="col-12">
-                                    <button id="add-image-form" class="btn btn-link my-2">Add Another Image</button>
+                                    <button id="add-image-form" class="btn btn-link my-2" style="text-decoration: none;"><i class="bi bi-plus-lg"></i></button>
                                 </div>
                             {% endfor %}
                         </div>

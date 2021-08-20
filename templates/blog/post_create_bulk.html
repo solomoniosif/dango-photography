@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -9,7 +9,7 @@
     <div class="global-container">
         {% include 'includes/messages.html' %}
 
-        <div class="row justify-content-md-center mt-90">
+        <div class="row justify-content-md-center">
             <div class="col-xl-8 col-lg-9 col-md-10">
 
                 <form action="" method="post" class="row g-3 mb-3 white-box" enctype="multipart/form-data">
@@ -18,14 +18,14 @@
                         <hr class="half-gradient-hr">
                     </div>
 
-                    <div class="col-6">
-                        <a class="btn btn-outline-secondary  w-100" href="{% url 'blog:create' %}">One-by-one photo
-                            upload</a>
-                    </div>
-
-                    <div class="col-6">
-                        <a class="btn btn-secondary w-100" href="{% url 'blog:create_bulk' %}">Bulk photo upload</a>
-                    </div>
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item list-group-item-action list-group-item-light w-100 text-center">
+                            <a href="{% url 'blog:create' %}" style="text-decoration: none; color: black;">One-by-one photo upload</a>
+                        </li>
+                        <li class="list-group-item  list-group-item-action list-group-item-warning w-100 text-center">
+                            <a href="{% url 'blog:create_bulk' %}" style="text-decoration: none; color: black; font-weight: bold;">Bulk photo upload</a>
+                        </li>
+                    </ul>
 
                     {% csrf_token %}
 
@@ -55,8 +55,7 @@
                         <hr class="half-gradient-hr">
                         <div class="form-group py-2">
                             <input type="checkbox" class="form-check-input" name="new_album" id="new-album" checked>
-                            <label class="form-check-label" for="new-album">Create new album with this post
-                                photos</label>
+                            <label class="form-check-label" for="new-album">Create a new album with this post photos</label>
                         </div>
 
                         <input class="form-control form-control-lg" type="file" accept="image/*" id="photos"

@@ -1,0 +1,69 @@
+{#<nav class="nav main-nav">#}
+{#    <div class="container">#}
+{#        <div class="logo">#}
+{#            <a href="{% url 'photos:home' %}">Django Photography</a>#}
+{#        </div>#}
+{#        <div id="mainListDiv" class="main_list">#}
+{#            <ul class="navlinks">#}
+{#                <li><a href="{% url 'blog:home' %}">Blog</a></li>#}
+{#                <li><a href="{% url 'photos:albums' %}">Albums</a></li>#}
+{#                <li><a href="{% url 'photos:photo_list' %}">Galleries</a></li>#}
+{#                <li><a href="">About me</a></li>#}
+{#                <li><a href="{% url 'photos:home' %}#contact-form">Contact</a></li>#}
+{#            </ul>#}
+{#        </div>#}
+{#        <span class="navTrigger">#}
+{#                <i></i>#}
+{#                <i></i>#}
+{#                <i></i>#}
+{#            </span>#}
+{#    </div>#}
+{#</nav>#}
+
+{#<div>#}
+{#    <div class="header-blue">#}
+{#        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">#}
+{#            <div class="container"><a class="navbar-brand" href="#">Django Photography</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>#}
+{#                <div class="collapse navbar-collapse"#}
+{#                     id="navcol-1">#}
+{#                    <ul class="nav navbar-nav">#}
+{#                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Blog</a></li>#}
+{#                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Albums</a></li>#}
+{#                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Galleries</a></li>#}
+{#                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">About me</a></li>#}
+{#                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Contact</a></li>#}
+{##}
+{#                    </ul>#}
+{#                    <form class="form-inline mr-auto" target="_self">#}
+{#                        <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>#}
+{#                    </form>#}
+{#                    <span class="navbar-text"> <a href="#" class="login">Log In</a></span><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></div>#}
+{#            </div>#}
+{#        </nav>#}
+{#    </div>#}
+{#</div>#}
+<div class="container nav-container mx-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'photos:home' %}">Django Photography</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'blog:home' %}">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Albums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Albums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Albums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Albums</a></li>
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>

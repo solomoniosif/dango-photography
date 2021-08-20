@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 
 {% block title %}
     Blog
@@ -23,10 +23,11 @@
 
         <div class="row">
             {% for post in posts %}
-
                 <div class="col-md-12 col-lg-6 {% if not post.is_published %}draft-post{% endif %}">
                     <div class="blog-card"
-                         style="background: url({{ post.get_featured_image_url }}) center no-repeat; ">
+                         style="background: url({{ post.get_featured_image_url }}) center no-repeat; cursor: pointer;"
+                         onclick="location.href='{{ post.get_absolute_url }}';">
+
                         <div class="title-content">
                             <h3><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></h3>
                         </div>
@@ -34,8 +35,6 @@
                             {% autoescape off %}
                                 {{ post.text|truncatewords:25 }}
                             {% endautoescape %}
-                            <a href="{{ post.get_absolute_url }}">See Post <i
-                                    class="bi bi-chevron-double-right"></i></a>
                         </div>
                         <div class="utility-info">
                             <ul class="utility-list">
@@ -55,7 +54,6 @@
                         <div class="color-overlay"></div>
                     </div>
                 </div>
-
             {% endfor %}
         </div>
     </div>
