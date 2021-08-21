@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, DeleteView
 from django.contrib import messages
 
-from .forms import PhotoForm, PhotoFormSet
+from .forms import PhotoForm, PhotoFormSet, AlbumForm
 from .models import Photo, Album
 
 
@@ -44,6 +44,12 @@ def upload_photo(request):
 	return render(request, 'photos/add_photo.html', context)
 
 
+class AlbumCreateView(CreateView):
+	template_name = "photos/album_create.html"
+	success_url = reverse_lazy('products')
+	form_class = AlbumForm
+
+
 class AlbumListView(ListView):
 	model = Album
 	template_name = 'photos/album_list.html'
@@ -59,3 +65,5 @@ class AlbumDetailView(DetailView):
 class AlbumDeleteView(DeleteView):
 	model = Album
 	success_url = reverse_lazy('photos:albums')
+
+

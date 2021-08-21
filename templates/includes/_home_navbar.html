@@ -8,8 +8,16 @@
                 <li><a href="{% url 'blog:home' %}">Blog</a></li>
                 <li><a href="{% url 'photos:albums' %}">Albums</a></li>
                 <li><a href="{% url 'photos:photo_list' %}">Galleries</a></li>
-                <li><a href="">About me</a></li>
                 <li><a href="{% url 'photos:home' %}#contact-form">Contact</a></li>
+                <li>
+                    <form class="search-box d-flex">
+                        <form>
+                            <input class="search_bar" name="search_bar" type="search">
+                        </form>
+                        {#                        <a class="p-20 cursor-pointer"><i class="bi bi-search"></i></a>#}
+                        {#                        <button class="btn btn-outline-success" type="submit">Search</button>#}
+                    </form>
+                </li>
             </ul>
         </div>
         <span class="navTrigger">

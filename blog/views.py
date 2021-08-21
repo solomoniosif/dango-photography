@@ -1,18 +1,13 @@
-from django import forms
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
-from django.views.generic import View, DetailView, ListView, CreateView, FormView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from django.contrib import messages
-from django.views.generic.detail import SingleObjectMixin
-from django.db import transaction
-
 from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithInlinesView
-from extra_views.contrib.mixins import SuccessMessageWithInlinesMixin
 
 from photos.models import Photo, Album
-from .forms import PostForm, PhotoForm, SelectAlbumForm
+from .forms import PostForm, PhotoForm
 from .models import Post
 
 
@@ -112,3 +107,17 @@ class PostUpdateWithInlinesView(UpdateWithInlinesView):
 	form_class = PostForm
 	inlines = [PhotoInline, ]
 	template_name = 'blog/post_update.html'
+
+
+@login_required
+def add_tags_to_post(request, slug):
+	post = get_object_or_404(Post, slug=slug)
+	new_tags = request.POST.get('new_tags')
+	tag_list = [raw_tag.strip() for raw_tag in new_tags.split(',')]
+	for tag in tag_list:
+		post.tags.add(tag)
+	if len(tag_list) == 1:
+		messages.success(request, f"The tag '{tag_list[0]}' was added to post '{post.title}'")
+	elif len(tag_list) > 1:
+		messages.success(request, f"the tags '{' '.join(tag_list)}' were added to post '{post.title}'")
+	return redirect('blog:post_detail', slug=post.slug)

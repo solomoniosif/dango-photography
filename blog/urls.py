@@ -11,4 +11,5 @@ urlpatterns = [
 	path('create-bulk/', views.PostCreateView.as_view(), name='create_bulk'),
 	path('update/<slug:slug>', views.PostUpdateWithInlinesView.as_view(), name='update'),
 	path('delete/<slug:slug>', views.PostDeleteView.as_view(), name='delete'),
+	path('<slug:slug>/add-tags/', views.add_tags_to_post, name='add_tags'),
 ]
