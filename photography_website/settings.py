@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from pathlib import Path
 
+import django_heroku
+import dj_database_url
+from decouple import config
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -46,10 +50,10 @@ INSTALLED_APPS = [
 	'taggit',
 	'cloudinary',
 	"crispy_forms",
-	'forms_fieldset',
+	# 'forms_fieldset',
 	'extra_views',
-	'widget_tweaks',
-	'debug_toolbar',
+	# 'widget_tweaks',
+	# 'debug_toolbar',
 	'django_comments_xtd',
 	'django_comments',
 
@@ -61,7 +65,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-	'debug_toolbar.middleware.DebugToolbarMiddleware',
+	# 'debug_toolbar.middleware.DebugToolbarMiddleware',
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
@@ -69,7 +73,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
+	'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'photography_website.urls'
@@ -213,3 +217,9 @@ DEBUG_TOOLBAR_PANELS = [
 	'debug_toolbar.panels.redirects.RedirectsPanel',
 	'debug_toolbar.panels.profiling.ProfilingPanel',
 ]
+
+# Whitenoise Configuration
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Django Heroku Configurations
+django_heroku.settings(locals())

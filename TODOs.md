@@ -1,19 +1,18 @@
 ## TODO:
 - [ ] Create user login, logout, registration views & corresponding templates
 - [ ] Find a way to add Instagram post feed
-- [ ] Implement permission for creating & updating content
-- [ ] Make post tags direct to a link of post that contain that tag 
-- [ ] Implement a share button
+- [ ] **Implement permission for creating & updating content**
+- [ ] **Implement a share button**
 - [ ] Make a header for a blog post with the featured image of the post
-- [ ] Create password-protected pages without the need to register - for displaying private photo galleries to clients
+- [ ] **Create password-protected pages without the need to register - for displaying private photo albums to clients**
 - [ ] Add pagination to blog section
-- [ ] Option to add tags to post without entering full post edit mode
+- [ ]  Make post tags direct to a link of post that contain that tag 
+- [ ] **Add a full-text search to the site/blog**
+- [ ] Create a system to count post / photos / albums views (with Redis ?)
+- [ ] Explore the possibility of using celery for photo uploading views
 - [ ] Create similar posts section for blog
 - [ ] Create a sitemap for the website
 - [ ] Create a feed system for the blog
-- [ ] Add a full-text search to the site/blog
-- [ ] Create a system to count post / photos / albums views (with Redis ?)
-- [ ] Explore the possibility of using celery for photo uploading views
 
 
 ## DONE:
@@ -28,4 +27,4 @@
 - [x] Fix  navbar lack of contrast on light backgrounds
 - [x] Create a comment system for blog
 - [x] Create a custom model manager for filtering published posts
-
+- [x] Option to add tags to post without entering full post edit mode
