@@ -33,7 +33,7 @@
                         </div>
                         <div class="card-info">
                             {% autoescape off %}
-                                {{ post.text|truncatewords:25 }}
+                                {{ post.text|truncatewords:25|linebreaks }}
                             {% endautoescape %}
                         </div>
                         <div class="utility-info">

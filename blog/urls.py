@@ -12,4 +12,5 @@ urlpatterns = [
 	path('update/<slug:slug>', views.PostUpdateWithInlinesView.as_view(), name='update'),
 	path('delete/<slug:slug>', views.PostDeleteView.as_view(), name='delete'),
 	path('<slug:slug>/add-tags/', views.add_tags_to_post, name='add_tags'),
+	path('tag/<str:tag>', views.search_posts_by_tag, name='search_by_tag'),
 ]

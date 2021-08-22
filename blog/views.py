@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from django.contrib import messages
 from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithInlinesView
@@ -47,6 +47,7 @@ class PostCreateView(CreateView):
 	success_url = None
 
 	def form_valid(self, form):
+		form.instance.author = self.request.user
 		self.object = form.save()
 		photos = self.request.FILES.getlist('photos')
 		if photos:
@@ -121,3 +122,16 @@ def add_tags_to_post(request, slug):
 	elif len(tag_list) > 1:
 		messages.success(request, f"the tags '{' '.join(tag_list)}' were added to post '{post.title}'")
 	return redirect('blog:post_detail', slug=post.slug)
+
+
+def search_posts_by_tag(request, tag):
+	posts = Post.objects.published().filter(tags__name=tag)
+	context = {
+		'tag': tag,
+		'posts': posts
+	}
+	if posts.exists():
+		messages.info(request, f"Posts tagged with '{tag}'")
+	else:
+		messages.warning(request, f"There are no posts tagged with '{tag}'")
+	return render(request, 'blog/post_list.html', context)
