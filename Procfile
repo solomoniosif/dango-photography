@@ -1,1 +1,1 @@
-web: gunicorn photography_website.wsgi
+web: gunicorn photography_website.wsgi --log-file -
