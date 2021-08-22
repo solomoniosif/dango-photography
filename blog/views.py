@@ -126,10 +126,7 @@ def add_tags_to_post(request, slug):
 
 def search_posts_by_tag(request, tag):
 	posts = Post.objects.published().filter(tags__name=tag)
-	context = {
-		'tag': tag,
-		'posts': posts
-	}
+	context = {'tag': tag, 'posts': posts}
 	if posts.exists():
 		messages.info(request, f"Posts tagged with '{tag}'")
 	else:
