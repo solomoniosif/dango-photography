@@ -22,10 +22,9 @@ body {
     position: absolute;
     z-index: 1;
     height: inherit;
-    top: calc(100% / 2.6);
+    top: calc(50% / 1.29);
     width: 100%;
     display: flex;
-    align-items: center;
 }
 
 .header-heading {
@@ -46,9 +45,20 @@ body {
 
 /* Homepage Carousel */
 #homepage_carousel {
-    height: 100vh;
+    max-height: 900px;
 }
 
+.carousel-inner {
+    max-height: 900px;
+}
+.carousel-item {
+    max-height: 900px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    max-height: 900px;
+}
 
 /* Contact form */
 .contact-form-container {
