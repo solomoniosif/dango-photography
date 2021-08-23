@@ -50,12 +50,11 @@ INSTALLED_APPS = [
 	'taggit',
 	'cloudinary',
 	"crispy_forms",
-	# 'forms_fieldset',
 	'extra_views',
-	# 'widget_tweaks',
-	# 'debug_toolbar',
+	'django_social_share',
 	'django_comments_xtd',
 	'django_comments',
+	# 'debug_toolbar',
 
 	# Local apps
 	'core',
