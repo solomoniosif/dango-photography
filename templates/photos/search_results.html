@@ -1,0 +1,60 @@
+{% extends '_base.html' %}
+
+{% block title %}
+    Blog
+{% endblock %}
+
+{% block content %}
+
+    <div class="container global-container text-center">
+
+        {% include 'includes/messages.html' %}
+
+
+        <h1>Latest Posts</h1>
+        <hr class="half-gradient-hr">
+
+        {% if request.user.is_authenticated %}
+            <br>
+            <a class="btn btn-outline-secondary mb-3" href="{% url 'blog:create' %}">Create Post</a>
+            <a class="btn btn-outline-secondary mb-3" href="{% url 'blog:user_posts' request.user.username %}">See all
+                posts</a>
+        {% endif %}
+
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-12 col-lg-6 {% if not post.is_published %}draft-post{% endif %}">
+                    <div class="blog-card"
+                         style="background: url({{ post.get_featured_image_url }}) center no-repeat; cursor: pointer;"
+                         onclick="location.href='{{ post.get_absolute_url }}';">
+
+                        <div class="title-content">
+                            <h3><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></h3>
+                        </div>
+                        <div class="card-info">
+                            {% autoescape off %}
+                                {{ post.text|truncatewords:25|linebreaks }}
+                            {% endautoescape %}
+                        </div>
+                        <div class="utility-info">
+                            <ul class="utility-list">
+                                <li><i class="bi bi-person"></i><a href="#">  {{ post.author|title }}</a></li>
+                                {% if post.is_published %}
+                                    <li><i class="bi bi-calendar"></i> {{ post.published_on|date:"d M Y" }}</li>
+                                {% elif post.is_draft %}
+                                    <li><i class="bi bi-pencil-square"></i> Draft post</li>
+                                {% elif post.is_private %}
+                                    <li><i class="bi bi-shield-lock"></i> Private post</li>
+                                {% endif %}
+
+                                <li><i class="bi bi-images"></i> {{ post.post_photos.all.count }}</li>
+                            </ul>
+                        </div>
+                        <div class="gradient-overlay"></div>
+                        <div class="color-overlay"></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

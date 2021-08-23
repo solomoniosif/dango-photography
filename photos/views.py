@@ -1,8 +1,10 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, DeleteView
 from django.contrib import messages
 
+from blog.models import Post
 from .forms import PhotoForm, PhotoFormSet, AlbumForm
 from .models import Photo, Album
 
@@ -67,3 +69,19 @@ class AlbumDeleteView(DeleteView):
 	success_url = reverse_lazy('photos:albums')
 
 
+class SearchView(TemplateView):
+	template_name = 'photos/search_results.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		query = self.request.GET.get('q')
+		posts = Post.objects.distinct().filter(
+			Q(title__icontains=query) | Q(text__icontains=query) | Q(tags__name__icontains=query))
+		albums = Album.objects.distinct().filter(Q(title__icontains=query))
+		if not posts.exists() and not albums.exists():
+			messages.error(self.request, f"No search results for <b>{query}</b>")
+		else:
+			context['posts'] = posts
+			context['albums'] = albums
+			messages.info(self.request, f"Search results for <b>{query}</b>")
+		return context

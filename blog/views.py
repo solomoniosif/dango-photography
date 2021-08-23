@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from django.contrib import messages
-from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithInlinesView
+from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithInlinesView, SuccessMessageMixin
 
 from photos.models import Photo, Album
 from .forms import PostForm, PhotoForm
@@ -59,7 +59,7 @@ class PostCreateView(CreateView):
 					tags=self.object.tags,
 					image=photo
 				)
-		messages.success(self.request, f"'{self.object.title}' created successfully")
+		messages.success(self.request, f"<b>{self.object.title}</b> created successfully")
 		return HttpResponseRedirect(self.get_success_url())
 
 	def get_success_url(self):
@@ -96,18 +96,19 @@ class PostCreateWithInlinesView(CreateWithInlinesView):
 				new_photo = form.save(commit=False)
 				new_photo.album = new_album
 				new_photo.save()
-		messages.success(self.request, f"'{self.object.title}' created successfully")
+		messages.success(self.request, f"<b>{self.object.title}</b> created successfully")
 		return response
 
 	def get_success_url(self):
 		return reverse_lazy('blog:post_detail', kwargs={'slug': self.object.slug})
 
 
-class PostUpdateWithInlinesView(UpdateWithInlinesView):
+class PostUpdateWithInlinesView(SuccessMessageMixin, UpdateWithInlinesView):
 	model = Post
 	form_class = PostForm
 	inlines = [PhotoInline, ]
 	template_name = 'blog/post_update.html'
+	success_message = "<b>%(title)s</b> was updated successfully"
 
 
 @login_required
@@ -118,9 +119,9 @@ def add_tags_to_post(request, slug):
 	for tag in tag_list:
 		post.tags.add(tag)
 	if len(tag_list) == 1:
-		messages.success(request, f"The tag '{tag_list[0]}' was added to post '{post.title}'")
+		messages.success(request, f"The tag <b>{tag_list[0]}</b> was added to post <b>{post.title}</b>")
 	elif len(tag_list) > 1:
-		messages.success(request, f"the tags '{' '.join(tag_list)}' were added to post '{post.title}'")
+		messages.success(request, f"The tags <b>{', '.join(tag_list)}</b> were added to post <b>{post.title}</b>")
 	return redirect('blog:post_detail', slug=post.slug)
 
 
@@ -128,7 +129,7 @@ def search_posts_by_tag(request, tag):
 	posts = Post.objects.published().filter(tags__name=tag)
 	context = {'tag': tag, 'posts': posts}
 	if posts.exists():
-		messages.info(request, f"Posts tagged with '{tag}'")
+		messages.info(request, f"Posts tagged with <b>{tag}</b>")
 	else:
-		messages.warning(request, f"There are no posts tagged with '{tag}'")
+		messages.warning(request, f"There are no posts tagged with <b>{tag}</b>")
 	return render(request, 'blog/post_list.html', context)

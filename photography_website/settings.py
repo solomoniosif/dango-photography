@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
+from pathlib import Path
+
 import django_heroku
 import dj_database_url
 from decouple import config
@@ -18,8 +20,6 @@ from decouple import config
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
-# from cloudinary_api_secrets import CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -148,6 +148,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static', ]
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django Messages Framework integrations with Bootstrap 5 Alerts
+MESSAGE_TAGS = {
+	messages.DEBUG: 'secondary',
+	messages.INFO: 'info',
+	messages.SUCCESS: 'success',
+	messages.WARNING: 'warning',
+	messages.ERROR: 'danger',
+}
 
 # Custom User Configuration
 AUTH_USER_MODEL = 'accounts.CustomUser'

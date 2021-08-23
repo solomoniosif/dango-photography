@@ -11,4 +11,5 @@ urlpatterns = [
 	path('albums/', views.AlbumListView.as_view(), name='albums'),
 	path('albums/<slug:slug>', views.AlbumDetailView.as_view(), name='album_detail'),
 	path('albums/delete/<slug:slug>', views.AlbumDeleteView.as_view(), name='album_delete'),
+	path('search/', views.SearchView.as_view(), name='search'),
 ]
