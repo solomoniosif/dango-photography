@@ -11,7 +11,7 @@
                 <li><a href="{% url 'photos:home' %}#contact-form">Contact</a></li>
                 <li>
                     <div>
-                        <form class="search-box d-flex" method="get" action="{% url 'photos:search' %}">
+                        <form class="search-box d-flex justify-content-center" method="get" action="{% url 'photos:search' %}">
                             <input class="search_bar" name="q" type="search" value='{{ request.GET.q }}'>
                         </form>
                     </div>
