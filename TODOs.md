@@ -4,6 +4,7 @@
 - [ ] Create user login, logout, registration views & corresponding templates
 - [ ] Make a header for a blog post with the featured image of the post
 - [ ] Add pagination to blog section
+- [ ] Fix the footer
 - [ ] Explore the possibility of using celery for photo uploading views
 - [ ] Find a way to add Instagram post feed
 - [ ] Create similar posts section for blog
