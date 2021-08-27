@@ -787,22 +787,70 @@ h3:after {
 }
 
 /* Post Action Container */
-
 .post-action-container {
     padding: 1rem;
+    display: inline-block;
 }
 
 .post-action-button,
+.post-action-share,
 .post-action-tag,
 .post-action-form {
     display: inline-block;
     position: relative;
+    cursor: pointer;
+    height: 25px;
+    margin: 3px 2px;
+    padding: 0;
+    border: 0;
+    vertical-align: center;
+}
+
+.post-action-button a i {
+    vertical-align: -.15em !important;
+}
+
+.round-button {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+}
+.round-button:hover,
+.round-button i:hover {
+    color: #ffffff;
+}
+
+.edit-button {
+    background: #f6dc41;
+}
+
+.delete-button {
+    background: #e84141;
+}
+
+.post-action-button a {
+    border-radius: 25px;
+    width: 30px;
     height: 30px;
-    margin: 0 auto;
-    padding: 0px;
-    border: 0px;
-    padding-left: 7px;
-    vertical-align: middle;
+    margin: 0 !important;
+}
+
+.post-action-button a i {
+    font-size: .9rem;
+    padding: 0 0 15px 0;
+    margin: 0;
+}
+
+.post-action-share a {
+    cursor: pointer;
+}
+.post-action-share a i {
+    vertical-align: -.2em !important;
 }
 
 /* Tag form */
@@ -812,7 +860,7 @@ h3:after {
     outline: none;
     border: none;
     width: 30px;
-    height: 30px;
+    height: 28px;
     padding-left: 10px;
     cursor: pointer;
 }
@@ -831,10 +879,6 @@ h3:after {
     cursor: auto;
 }
 
-.blog-action-container {
-    display: inline-block;
-}
-
 /* Tooltips */
 [data-tooltip] {
     position: relative;
@@ -843,7 +887,7 @@ h3:after {
 
 [data-tooltip]::after {
     position: absolute;
-    width: 100px;
+    min-width: 100px;
     left: calc(50% - 50px);
     bottom: 125%;
     content: attr(data-tooltip);
@@ -851,9 +895,9 @@ h3:after {
     box-sizing: border-box;
     color: white;
     background: black;
-    padding: 8px;
+    padding: 5px 8px;
     border-radius: 10px;
-    font-size: .9rem;
+    font-size: .8rem;
     font-weight: bold;
     visibility: hidden;
     opacity: 0;

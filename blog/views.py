@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView, CreateView, DeleteView
 from django.contrib import messages
+
+from hitcount.views import HitCountDetailView
 from extra_views import InlineFormSetFactory, CreateWithInlinesView, UpdateWithInlinesView, SuccessMessageMixin
 
 from photos.models import Photo, Album
@@ -11,10 +13,11 @@ from .forms import PostForm, PhotoForm
 from .models import Post
 
 
-class PostDetailView(DetailView):
+class PostDetailView(HitCountDetailView):
 	template_name = 'blog/post_details.html'
 	model = Post
 	context_object_name = 'post'
+	count_hit = True
 
 
 class PostListView(ListView):

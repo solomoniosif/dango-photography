@@ -61,15 +61,19 @@
                                                 <div class="p-3"><b>Add a photo</b></div>
                                                 <div class="p-2">
                                                     {{ photo_form|crispy }}
+                                                    <button class="align-self-center btn btn-danger delete-image-form">
+                                                        Delete
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     {% endif %}
 
-                                    <div id="form-end-hidden" style="display: none;"></div>
+
                                 {% endfor %}
+                                <div id="form-end-hidden" style="display: none;"></div>
                                 <div class="col-12">
-                                    <button id="add-image-form" class="btn btn-link my-2">Add Another Image</button>
+                                    <button id="add-image-form" class="btn btn-link my-2" style="text-decoration: none;" data-tooltip="Add another photo"><i class="bi bi-plus-lg"></i></button>
                                 </div>
                             {% endfor %}
                         </div>

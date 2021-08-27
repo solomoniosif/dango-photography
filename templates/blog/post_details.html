@@ -1,6 +1,5 @@
 {% extends '_base.html' %}
-{% load comments comments_xtd %}
-{% load social_share %}
+{% load comments comments_xtd social_share hitcount_tags %}
 
 {% block title %}
     {{ post.title }}
@@ -15,31 +14,17 @@
             <div class="col-lg-7 text-center">
                 <h1>{{ post.title }}</h1>
                 <hr class="half-gradient-hr">
-                <h5>By <b>{{ post.author|title }}</b> on <b>{{ post.created_on|date:"d M Y" }}</b></h5>
+                <h6>By <b>{{ post.author|title }}</b> on
+                    <b>{{ post.created_on|date:"d M Y" }}</b> | {% get_hit_count for post %} <i class="bi bi-eye"></i>
+                </h6>
 
-                {% post_to_facebook object_or_url "Post to Facebook!" %}
-
-                <div class="post-action-container px-5">
-                    {% if request.user.is_authenticated and post.author == request.user %}
-
-                        <div class="post-action-button" data-tooltip="Edit post">
-                            <a class="btn btn-warning btn-sm mb-3" style="border-radius: 30px; height: 30px;"
-                               href="{% url 'blog:update' post.slug %}">
-                                <i class="bi bi-pencil-square"></i></a>
-                        </div>
-
-                        <div class="post-action-button" data-tooltip="Delete post">
-                            <a class="btn btn-danger btn-sm mb-3" style="border-radius: 30px; height: 30px;"
-                               href="{% url 'blog:delete' post.slug %}">
-                                <i class="bi bi-trash"></i></a>
-                        </div>
-                    {% endif %}
-
+                <div>
                     {% for tag in post.tags.all %}
                         <div class="post-action-tag" data-tooltip="See posts with this tag">
                         <span class="badge rounded-pill bg-secondary"
-                              style="font-size: 1rem; cursor: pointer;"><a
-                                href="{% url 'blog:search_by_tag' tag %}" style="text-decoration: none; color: #fff;">{{ tag }}</a></span>
+                              style="font-size: .9rem; cursor: pointer;"><a
+                                href="{% url 'blog:search_by_tag' tag %}"
+                                style="text-decoration: none; color: #fff;">{{ tag }}</a></span>
                         </div>
                     {% endfor %}
 
@@ -53,7 +38,29 @@
                         </div>
                     {% endif %}
                 </div>
-                <br>
+
+
+                <div class="post-action-container px-5">
+                    {% post_to_facebook object_or_url "Share on Facebook" %}
+                    {% post_to_whatsapp object_or_url "Share via WhatsApp" %}
+
+
+                    {% if request.user.is_authenticated and post.author == request.user %}
+
+                        <div class="post-action-button" data-tooltip="Edit post">
+                            <a class="round-button edit-button"
+                               href="{% url 'blog:update' post.slug %}">
+                                <i class="bi bi-pencil-square"></i></a>
+                        </div>
+
+                        <div class="post-action-button" data-tooltip="Delete post">
+                            <a class="round-button delete-button"
+                               href="{% url 'blog:delete' post.slug %}">
+                                <i class="bi bi-trash"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+
                 {% autoescape off %}
                     <h5>{{ post.text|linebreaks }}</h5>
                 {% endautoescape on %}
@@ -67,7 +74,9 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+                {% save_to_pinterest object_or_url "Save to pinterest" %}
             </div>
+
 
             <!-- Comments Section -->
             <div class="col-lg-7 p-3">
@@ -108,4 +117,5 @@
 
         </div>
     </div>
+    {% add_pinterest_script %}
 {% endblock %}

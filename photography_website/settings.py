@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 	'django_social_share',
 	'django_comments_xtd',
 	'django_comments',
+	'hitcount',
 	# 'debug_toolbar',
 
 	# Local apps
