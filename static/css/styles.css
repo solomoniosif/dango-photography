@@ -151,10 +151,8 @@ body {
 }
 
 .main-nav div.logo a:hover {
-    padding: 5px 10px;
-    border-radius: 12px;
-    color: rgb(0, 0, 0);
-    text-shadow: 0 8px 20px rgba(42, 41, 41, 0.95);
+    color: rgba(255, 255, 255, 0);
+    text-shadow: -5px 5px 0px rgb(0, 0, 0);
 }
 
 .main-nav div.main_list {
@@ -187,10 +185,7 @@ body {
 }
 
 .main-nav div.main_list ul li a:hover {
-    padding: 5px 10px;
-    border-radius: 10px;
-    color: #000;
-    text-shadow: 0 8px 20px rgba(255, 255, 255, 0.95);
+    color: #0b05ff;
 }
 
 #mainListDiv {
@@ -224,7 +219,7 @@ body {
 
     #mainListDiv {
         padding-right: 0;
-        max-width: 300px;
+        max-width: 400px;
     }
 
     .main-nav div.logo {
@@ -251,7 +246,7 @@ body {
     .main-nav div.main_list ul {
         flex-direction: column;
         width: 100%;
-        height: 16rem; /*70vh;*/
+        height: 19rem; /*70vh;*/
         right: 0;
         left: 0;
         bottom: 0;
@@ -823,6 +818,7 @@ h3:after {
     text-align: center;
     text-decoration: none;
 }
+
 .round-button:hover,
 .round-button i:hover {
     color: #ffffff;
@@ -852,6 +848,7 @@ h3:after {
 .post-action-share a {
     cursor: pointer;
 }
+
 .post-action-share a i {
     vertical-align: -.2em !important;
 }
@@ -912,6 +909,21 @@ h3:after {
     opacity: .9;
     visibility: visible;
     transform: translateY(0);
+}
+
+/* Popovers */
+.popover-header {
+    padding: 10px !important;
+    margin: 0 auto;
+}
+
+.popover-header:after {
+    content: "" !important;
+    margin: 0;
+}
+
+.popover-body {
+    padding: 10px !important;
 }
 
 /**************************

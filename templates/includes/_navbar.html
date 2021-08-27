@@ -9,10 +9,27 @@
                 <li><a href="{% url 'photos:albums' %}">Albums</a></li>
                 <li><a href="{% url 'photos:photo_list' %}">Galleries</a></li>
                 <li><a href="{% url 'photos:home' %}#contact-form">Contact</a></li>
-                {% if request.user.is_authenticated %}
-                    <li><i class="bi bi-person" style="font-size: 1.5rem;"
-                           data-tooltip="Logged in as {{ request.user.username|title }}"></i></li>
-                {% endif %}
+
+                <li>
+                    <a href="#"
+{#                       tabindex="0"#}
+                       id="user-menu"
+                       data-bs-toggle="popover"
+                       data-bs-trigger="focus"
+                       html="true"
+                       data-html="true"
+                       title="{{ request.user.username|title }}"
+                            {% if request.user.is_authenticated %}
+                       data-bs-content="<a href='{% url 'accounts:logout' %}'>Logout</a>"
+                            {% else %}
+                       data-bs-content="<a href='{% url 'accounts:login' %}'>Login</a>"
+                            {% endif %}
+                       data-bs-placement="bottom">
+                        <i class="bi bi-person" style="font-size: 1.5rem;"></i>
+                    </a>
+                </li>
+
+
                 <li>
                     <div>
                         <form class="search-box d-flex justify-content-center" method="get"

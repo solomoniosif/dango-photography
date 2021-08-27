@@ -9,13 +9,16 @@
         {% include 'includes/messages.html' %}
 
         <div class="row justify-content-md-center">
-            <div class="col-lg-5 white-box p-4">
+            <div class="col-lg-4 col-md-7 white-box px-3">
                 <h1 class="mb-3">Sign Up</h1>
                 <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button type="submit" class="btn btn-primary mt-2 float-end">Sign Up</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-3 mb-2">Sign Up</button>
                 </form>
+                <br>
+                <p>Already have an account? <a style="text-decoration: none;"
+                                               href="{% url 'accounts:login' %}">Login</a></p>
             </div>
         </div>
     </div>
