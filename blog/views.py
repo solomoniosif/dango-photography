@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect, render
@@ -38,16 +39,18 @@ class UserPostListView(ListView):
 		return user_posts
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 	model = Post
 	success_url = reverse_lazy('blog:home')
+	permission_required = 'post.delete_post'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 	model = Post
 	template_name = 'blog/post_create_bulk.html'
 	form_class = PostForm
 	success_url = None
+	permission_required = 'post.add_post'
 
 	def form_valid(self, form):
 		form.instance.author = self.request.user

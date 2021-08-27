@@ -9,9 +9,14 @@
                 <li><a href="{% url 'photos:albums' %}">Albums</a></li>
                 <li><a href="{% url 'photos:photo_list' %}">Galleries</a></li>
                 <li><a href="{% url 'photos:home' %}#contact-form">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><i class="bi bi-person" style="font-size: 1.5rem;"
+                           data-tooltip="Logged in as {{ request.user.username|title }}"></i></li>
+                {% endif %}
                 <li>
                     <div>
-                        <form class="search-box d-flex justify-content-center" method="get" action="{% url 'photos:search' %}">
+                        <form class="search-box d-flex justify-content-center" method="get"
+                              action="{% url 'photos:search' %}">
                             <input class="search_bar" name="q" type="search" value='{{ request.GET.q }}'>
                         </form>
                     </div>

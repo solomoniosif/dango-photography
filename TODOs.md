@@ -1,7 +1,6 @@
 ## TODO:
 - [ ] **Implement permission for creating & updating content**
 - [ ] **Create password-protected pages without the need to register - for displaying private photo albums to clients**
-- [ ] Create user login, logout, registration views & corresponding templates
 - [ ] Make a header for a blog post with the featured image of the post
 - [ ] Add pagination to blog section
 - [ ] Fix the footer
@@ -30,3 +29,4 @@
 - [x] Add a full-text search to the site/blog
 - [x] Implement a share button
 - [x] Create a system to count post / photos / albums views 
+- [x] Create user login, logout, registration views & corresponding templates
