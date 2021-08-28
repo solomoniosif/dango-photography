@@ -35,7 +35,7 @@
                 <li>
                     <div>
                         <form class="search-box d-flex justify-content-center" method="get"
-                              action="{% url 'photos:search' %}">
+                              action="{% url 'photos:search' %}" autocomplete="off">
                             <input class="search_bar" name="q" type="search" value='{{ request.GET.q }}'>
                         </form>
                     </div>

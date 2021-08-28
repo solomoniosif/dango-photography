@@ -29,7 +29,7 @@ class PostListView(ListView):
 
 
 class UserPostListView(ListView):
-	template_name = 'blog/post_list.html'
+	template_name = 'blog/user_post_list.html'
 	model = Post
 	context_object_name = 'posts'
 
@@ -85,7 +85,7 @@ class PhotoInline(InlineFormSetFactory):
 		return factory_kwargs
 
 
-class PostCreateWithInlinesView(CreateWithInlinesView):
+class PostCreateWithInlinesView(LoginRequiredMixin, CreateWithInlinesView):
 	model = Post
 	form_class = PostForm
 	inlines = [PhotoInline, ]
@@ -109,7 +109,7 @@ class PostCreateWithInlinesView(CreateWithInlinesView):
 		return reverse_lazy('blog:post_detail', kwargs={'slug': self.object.slug})
 
 
-class PostUpdateWithInlinesView(SuccessMessageMixin, UpdateWithInlinesView):
+class PostUpdateWithInlinesView(LoginRequiredMixin, SuccessMessageMixin, UpdateWithInlinesView):
 	model = Post
 	form_class = PostForm
 	inlines = [PhotoInline, ]

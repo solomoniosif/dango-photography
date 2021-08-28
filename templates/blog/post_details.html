@@ -30,7 +30,7 @@
 
                     {% if request.user.is_authenticated and post.author == request.user %}
                         <div id="tag-form" class="post-action-form" data-tooltip="Add tags">
-                            <form action="{% url 'blog:add_tags' post.slug %}" method="post">
+                            <form action="{% url 'blog:add_tags' post.slug %}" method="post" autocomplete="off">
                                 {% csrf_token %}
                                 <input type="text" name="new_tags">
                                 <input type="submit" hidden/>
