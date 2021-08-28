@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, DeleteView
 from django.contrib import messages
-import kwargs as kwargs
 
 from blog.models import Post
 from .forms import PhotoForm, PhotoFormSet, AlbumForm
