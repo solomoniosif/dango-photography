@@ -1,31 +1,22 @@
 from django.db import models
+import secrets
+from django.utils import timezone
 from django.db.models.signals import pre_save
 from django.urls import reverse
 
 from taggit.managers import TaggableManager
 from cloudinary.models import CloudinaryField
 
+from photography_website import settings
 from blog.models import Post
 from core.utils import slugify_pre_save
 
 
-class Gallery(models.Model):
-	title = models.CharField(max_length=200, null=False, blank=False)
-	slug = models.SlugField(null=True, blank=True, db_index=True)
-
-	def __str__(self):
-		return self.title
-
-	class Meta:
-		verbose_name = 'Gallery'
-		verbose_name_plural = 'Galleries'
-
-
 class Album(models.Model):
 	title = models.CharField(max_length=200, null=False, blank=False)
-	gallery = models.ForeignKey(Gallery, on_delete=models.SET_NULL, null=True, blank=True)
 	slug = models.SlugField(null=True, blank=True, db_index=True)
 	is_featured = models.BooleanField(default=False)
+	is_private = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.title
@@ -49,6 +40,27 @@ class Album(models.Model):
 		verbose_name = 'Album'
 		verbose_name_plural = 'Albums'
 		ordering = ['-is_featured', '-id']
+
+
+def get_default_token_expiry_date(weeks=26):
+	return timezone.localtime(timezone.now()) + timezone.timedelta(weeks=weeks)
+
+
+class AlbumToken(models.Model):
+	album = models.ForeignKey(Album, on_delete=models.CASCADE)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+	token = models.CharField(max_length=255, default=secrets.token_urlsafe(16))
+	creation_date = models.DateTimeField(auto_now_add=True)
+	expiry_date = models.DateTimeField(default=get_default_token_expiry_date)
+
+	def __str__(self):
+		if self.user:
+			return f"{self.user.username.title()}'s token for album '{self.album.title}'"
+		return f"Anonymous token for album '{self.album.title}'"
+
+	class Meta:
+		verbose_name = 'Album Token'
+		verbose_name_plural = 'Albums Tokens'
 
 
 class Photo(models.Model):

@@ -3,10 +3,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, DeleteView
 from django.contrib import messages
+import kwargs as kwargs
 
 from blog.models import Post
 from .forms import PhotoForm, PhotoFormSet, AlbumForm
-from .models import Photo, Album
+from .models import Photo, Album, AlbumToken
 
 
 def home(request):
@@ -85,3 +86,12 @@ class SearchView(TemplateView):
 			context['albums'] = albums
 			messages.info(self.request, f"Search results for <b>{query}</b>")
 		return context
+
+
+def private_gallery_view(request, token):
+	album_tokens = AlbumToken.objects.filter(token=token)
+	if album_tokens.exists():
+		album = album_tokens[0].album
+		return redirect(reverse_lazy('photos:album_detail', kwargs={'slug': album.slug}))
+	messages.error(request, "Invalid token")
+	return redirect('photos:home')

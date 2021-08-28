@@ -1,5 +1,4 @@
 ## TODO:
-- [ ] **Implement permission for creating & updating content**
 - [ ] **Create password-protected pages without the need to register - for displaying private photo albums to clients**
 - [ ] Make a header for a blog post with the featured image of the post
 - [ ] Add pagination to blog section
@@ -8,7 +7,7 @@
 - [ ] Create similar posts section for blog
 - [ ] Create a sitemap for the website
 - [ ] Create a feed system for the blog
-- [ ] Connect Contact me form to a view on the backend
+- [ ] Create a view for Contact me form
 
 
 ## DONE:
@@ -30,3 +29,5 @@
 - [x] Create a system to count post / photos / albums views 
 - [x] Create user login, logout, registration views & corresponding templates
 - [x] Fix the footer
+- [x] Implement permission for creating & updating content
+

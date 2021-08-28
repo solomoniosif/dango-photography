@@ -12,4 +12,5 @@ urlpatterns = [
 	path('albums/<slug:slug>', views.AlbumDetailView.as_view(), name='album_detail'),
 	path('albums/delete/<slug:slug>', views.AlbumDeleteView.as_view(), name='album_delete'),
 	path('search/', views.SearchView.as_view(), name='search'),
+	path('private-gallery/<str:token>/', views.private_gallery_view, name='private_gallery')
 ]
