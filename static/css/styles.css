@@ -172,7 +172,7 @@ body {
 .main-nav div.main_list ul li {
     width: auto;
     height: 65px;
-    padding: 0 5px;
+    padding: 0 2px;
 }
 
 .main-nav div.main_list ul li a {
@@ -180,12 +180,12 @@ body {
     color: #181818;
     line-height: 65px;
     font-size: 1.4rem;
-    padding: 0 10px;
+    padding: 0 5px;
     text-shadow: 0 8px 20px rgba(217, 209, 209, 0.95);
 }
 
 .main-nav div.main_list ul li a:hover {
-    color: #0b05ff;
+    color: #6896df;
 }
 
 #mainListDiv {
@@ -913,8 +913,10 @@ h3:after {
 
 /* Popovers */
 .popover-header {
-    padding: 10px !important;
     margin: 0 auto;
+    text-align: center;
+    color: #5877aa;
+    font-weight: bold;
 }
 
 .popover-header:after {
@@ -925,6 +927,23 @@ h3:after {
 .popover-body {
     padding: 10px !important;
 }
+
+.popover-body ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.popover-body ul li {
+    padding-bottom: 3px;
+}
+
+.popover-body a {
+    text-decoration: none;
+    color: rgb(104, 150, 223);
+    font-weight: bold;
+}
+
 
 /**************************
   4. Album section

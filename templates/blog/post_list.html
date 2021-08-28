@@ -10,16 +10,8 @@
 
         {% include 'includes/messages.html' %}
 
-
         <h1>Latest Posts</h1>
-        <hr class="half-gradient-hr">
-
-        {% if request.user.is_authenticated %}
-            <br>
-            <a class="btn btn-outline-secondary mb-3" href="{% url 'blog:create' %}">Create Post</a>
-            <a class="btn btn-outline-secondary mb-3" href="{% url 'blog:user_posts' request.user.username %}">See all
-                posts</a>
-        {% endif %}
+        <hr class="half-gradient-hr mb-5">
 
         <div class="row">
             {% for post in posts %}

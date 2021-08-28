@@ -3,7 +3,6 @@
 - [ ] **Create password-protected pages without the need to register - for displaying private photo albums to clients**
 - [ ] Make a header for a blog post with the featured image of the post
 - [ ] Add pagination to blog section
-- [ ] Fix the footer
 - [ ] Explore the possibility of using celery for photo uploading views
 - [ ] Find a way to add Instagram post feed
 - [ ] Create similar posts section for blog
@@ -30,3 +29,4 @@
 - [x] Implement a share button
 - [x] Create a system to count post / photos / albums views 
 - [x] Create user login, logout, registration views & corresponding templates
+- [x] Fix the footer
